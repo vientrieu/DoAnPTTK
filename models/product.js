@@ -9,7 +9,7 @@ module.exports = {
         try {
             const sql = `SELECT * FROM ${tbName}`;
             const rows = await db.load(sql);
-
+            console.log(rows);
             return rows;
         } catch (error) {
             console.log("Error Model: Product: all", error);
