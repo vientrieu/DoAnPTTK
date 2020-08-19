@@ -2,7 +2,7 @@ let express = require('express');
 let app = express();
 let expressHbs = require('express-handlebars');
 let mysqlconnect = require('./database/mysql');
-var hoadon = require('./Models/hoadon.model')
+var F5controller = require('./Controllers/function5.controller')
 
 //set public static folder
 app.use(express.static(__dirname + '/Public'));
@@ -43,10 +43,7 @@ app.get('/function-4', (req, res) => {
     })
 });
 app.get('/function-5', (req, res) => {
-    res.render('./Admin/profile', {
-        page: 'Profile',
-        profile: 'active'
-    })
+    F5controller.TruyCapHoaDon(req, res, `1`);
 });
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server is running at port ${process.env.PORT || 3000}`);
