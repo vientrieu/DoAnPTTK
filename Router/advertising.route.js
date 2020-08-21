@@ -1,21 +1,5 @@
 const express = require("express");
-var madversiting = require('../models/adversiting.model');
-var madversiting = require('../models/adversiting.model');
-const moment = require("moment");
 const app = express.Router();
-app.get('/', (req, res) => {
-    res.redirect('/admin/quanlisanpham');
-});
-app.get('/admin/quanlisanpham', (req, res) => {
-    res.render('./Admin/statistic', {
-        page: 'Profile',
-        profile: 'active'
-    })
-});
-app.use('/admin/quanlithongtindathang/', require('./function5.route'));
-app.use('/admin/advertising/', require('./advertising.route'));
-//---------------------------------------------------------------
-//phần quảng cáo 
 app.get('/admin/advertising', (req, res) => {
     res.render('./Admin/advertising/advertising', {
         page: 'Profile',
@@ -80,21 +64,5 @@ app.post("/admin/AddQC", async (req, res) => {
     console.log(entity);
     var idx = await madversiting.addQC(entity);
     console.log(idx);
-});
-
-
-//Hết phần quảng cáo
-//---------------------------------------------------------------
-app.get('/function-4', (req, res) => {
-    res.render('./Admin/profile', {
-        page: 'Profile',
-        profile: 'active'
-    })
-});
-app.get('/function-5', (req, res) => {
-    res.render('./Admin/profile', {
-        page: 'Profile',
-        profile: 'active'
-    })
 });
 module.exports = app;
