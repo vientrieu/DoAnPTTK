@@ -32,6 +32,7 @@ app.get('/admin/advertising/web', (req, res) => {
         profile: 'active'
     })
 });
+// phần của VỸ
 app.get('/admin/advertising/users', async (req, res)  => {
 var row = await madversiting.allQuangcaoNguoiDung();
 for(const i in row)
@@ -40,7 +41,7 @@ for(const i in row)
 
    row[i].NgayGuiQuangCao=tempdate;
 }
-
+console.log(row);
     res.render('./Admin/advertising/Adv_User', {
         page: 'Profile',
         profile: 'active',
