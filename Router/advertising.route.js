@@ -61,11 +61,13 @@ app.post("/add", async (req, res) => {
 
     var entity = {};
     entity.TenQuangCao = req.body.nameQC;
-    entity.MaMatHang = 1;
+    entity.MaMatHang = "";
     entity.MoTa = req.body.motaQC;
     
     var idx = await madversiting.addQC(entity);
     var rowcats = await madversiting.allLoaiHang();
+    console.log(req.body);
+
 
     res.render('./Admin/advertising/addQC', {
         page: 'Profile',

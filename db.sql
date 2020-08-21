@@ -1,6 +1,6 @@
-drop database if exists PTTKHTTT;
-create database PTTKHTTT;
-use PTTKHTTT;
+drop database if exists PTTKHTTT1;
+create database PTTKHTTT1;
+use PTTKHTTT1;
 -- create user for connection
 drop user if exists 'newuser' ;
 CREATE USER 'newuser' IDENTIFIED BY 'password';
@@ -75,11 +75,7 @@ SET
   DROP TABLE IF EXISTS `QuangCaoNguoiDung`;
 CREATE TABLE `QuangCaoNguoiDung` (
     `MaQuangCaoNguoiDung` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `TenQuangCao` VARCHAR (50) CHARACTER 
-			SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-		`MaMatHang` int(11) null,
-    `MoTa` VARCHAR (200) CHARACTER 
-			SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+     `MaQuangCaoGuiDi` int(11),
             `MaKH` INT,
 	 `NgayGuiQuangCao` datetime NOT NULL,
     PRIMARY KEY (`MaQuangCaoNguoiDung`) USING BTREE
@@ -87,7 +83,23 @@ CREATE TABLE `QuangCaoNguoiDung` (
 		SET = utf8 COLLATE = utf8_unicode_ci;
 SET
   FOREIGN_KEY_CHECKS = 1;
-    
+  
+       -- Tạo bảng  luu  các quảng cáo
+  DROP TABLE IF EXISTS `CacQuangCaoGuiDi`;
+CREATE TABLE `CacQuangCaoGuiDi` (
+    `MaQuangCaoGuiDi` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `TenQuangCao` VARCHAR (50) CHARACTER 
+			SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`MaMatHang` int(11) null,
+    `MoTa` VARCHAR (200) CHARACTER 
+			SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    PRIMARY KEY (`MaQuangCaoGuiDi`) USING BTREE
+  ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
+		SET = utf8 COLLATE = utf8_unicode_ci;
+SET
+  FOREIGN_KEY_CHECKS = 1;
+  
+     
 
     
     
@@ -147,13 +159,13 @@ create table `CommentKH` (
 SET
   FOREIGN_KEY_CHECKS = 1;
   -- thêm data và tạo khóa ngoại
-  
-ALTER TABLE QuangCaoNguoiDung ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
+  ALTER TABLE QuangCaoNguoiDung ADD FOREIGN KEY(MaQuangCaoGuiDi) REFERENCES CacQuangCaoGuiDi(MaQuangCaoGuiDi);
+ALTER TABLE CacQuangCaoGuiDi ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
 ALTER TABLE CommentKH ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
 ALTER TABLE CommentKH ADD FOREIGN KEY(MaKH) REFERENCES KhachHang(MaKH);
       ALTER TABLE QuangCaoNguoiDung ADD FOREIGN KEY(MaKH) REFERENCES KhachHang(MaKH);
       begin;
-    INSERT INTO `QuangCaoNguoiDung` VALUES(null,'Quang cao san pham',null,'Quang cao trang tin tuc',4,'2020-05-20 00:00:00');
+    INSERT INTO `QuangCaoNguoiDung` VALUES(null,1,2,'2020-05-20 00:00:00');
     commit;
     begin;
        INSERT INTO `KhachHang` VALUES(null,'Nguyen Huu Hao','huuhao1999@gmail.com','0967023428','TPHCM');
