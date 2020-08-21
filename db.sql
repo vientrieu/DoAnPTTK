@@ -1,6 +1,6 @@
-drop database if exists PTTKHTTT1;
-create database PTTKHTTT1;
-use PTTKHTTT1;
+drop database if exists PTTKHTTT;
+create database PTTKHTTT;
+use PTTKHTTT;
 -- create user for connection
 drop user if exists 'newuser' ;
 CREATE USER 'newuser' IDENTIFIED BY 'password';
@@ -84,15 +84,14 @@ CREATE TABLE `QuangCaoNguoiDung` (
 SET
   FOREIGN_KEY_CHECKS = 1;
   
-       -- Tạo bảng  luu  các quảng cáo
+-- Tạo bảng  luu  các quảng cáo
   DROP TABLE IF EXISTS `CacQuangCaoGuiDi`;
 CREATE TABLE `CacQuangCaoGuiDi` (
     `MaQuangCaoGuiDi` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     `TenQuangCao` VARCHAR (50) CHARACTER 
 			SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		`MaMatHang` int(11) null,
-    `MoTa` VARCHAR (200) CHARACTER 
-			SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    `MoTa` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     PRIMARY KEY (`MaQuangCaoGuiDi`) USING BTREE
   ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
 		SET = utf8 COLLATE = utf8_unicode_ci;
@@ -169,8 +168,6 @@ ALTER TABLE CommentKH ADD FOREIGN KEY(MaKH) REFERENCES KhachHang(MaKH);
       BEGIN;
 INSERT INTO `LoaiHang` VALUES (1, 'Sức Khỏe'), (2, 'Điện tử'), (3, 'Thực phẩm'), (4, 'Gia Dụng');
 COMMIT;
-
-      
       begin;
     INSERT INTO `QuangCaoNguoiDung` VALUES(null,1,2,'2020-05-20 00:00:00');
     commit;
