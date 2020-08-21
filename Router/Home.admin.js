@@ -32,15 +32,9 @@ app.get('/admin/advertising/web', (req, res) => {
         profile: 'active'
     })
 });
-app.get('/admin/advertising/users', async (req, res) => {
-    var row = await madversiting.allQuangcaoNguoiDung();
-    for (const i in row) {
-        var tempdate = moment(row[i].NgayGuiQuangCao, "YYYY-MM-DD HH:MM:SS").format("YYYY-MM-DD HH:MM:SS");
-        row[i].NgayGuiQuangCao = tempdate;
-    }
-});
 
-    // phần của VỸ
+
+   
     app.get('/admin/advertising/users', async (req, res) => {
         var row = await madversiting.allQuangcaoNguoiDung();
         for (const i in row) {
