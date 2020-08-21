@@ -1,0 +1,45 @@
+<div class="container pt-5 pb-5">
+    <div class="row text-center">
+
+    </div>
+    <div class="row">
+        <h2>
+            Quản lí quảng cáo USER
+        </h2>
+        <div class="container pt-5 pb-5">
+            <div class="row text-center">
+                <span>
+                    Lịch Sử Gửi Quảng Cáo của KH: {{MaKH}}
+                </span>
+            </div>
+            <div class="row">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Mã quảng cáo người dùng</th>
+                            <th scope="col" class="text-center">Tên quảng cáo</th>
+                            <th scope="col" class="text-center">Mã mặt hàng</th>
+                            <th scope="col" class="text-center">Mô tả chi tiết</th>
+                            <th scope="col" class="text-center">Ngày Gửi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each userqc}}
+                        <tr class="product" data-id="{{MaQuangCaoNguoiDung}}">
+                            <td class="text-center">{{MaQuangCaoNguoiDung}}</td>
+                            <td class="text-center">{{TenQuangCao}}</td>
+                            <th scope="row" class="text-center">{{MaMatHang}}</th>
+                            <td class="text-center">{{MoTa}}</td>
+                            <td class="text-center">{{NgayGuiQuangCao}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
