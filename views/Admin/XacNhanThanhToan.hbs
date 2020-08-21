@@ -1,6 +1,16 @@
 <div class="container-fluid mt--6">
     <div class="row">
         <div class="col-xl-12 order-xl-1">
+            <div class="row">
+                <span class="col-xl-4 order-xl-1">
+                    <input class="form-control" id="search-input" placeholder="Search" type="text">
+                </span>
+                <span class="col-xl-2 order-xl-1">
+                    <button class="btn btn-icon btn-danger" id="search-btn" type="button">
+                        <span class="btn-inner--text">Tìm kiếm</span>
+                    </button>
+                </span>
+            </div>
             <div class="card">
                 <div class="card-header">
                     <div class="row align-items-center">
@@ -10,16 +20,34 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    {{#if HoaDon}}
+                    {{#each HoaDon}}
+                    <ul>
+                        <li>Mã Hóa Đơn: {{MaHoaDon}}</li>
+                        <li>Mã Khách Hàng: {{MaKhachHang}}</li>
+                        <li>Mã Nhân Viên Bán Hàng: {{MaNhanVienBanHang}}</li>
+                        <li>Mã Nhân Viên Giao Hàng: {{MaNhanVienGiaoHang}}</li>
+                        <li>Mã Tổng Tiền: {{TongTien}}</li>
+                        <li>Mã Ngày Lập Hóa Đơn: {{NgayLapHoaDon}}</li>
+                        <li>Tình Trạng Hóa Đơn: {{ThongTinXacNhanDonHang}}</li>
+                    </ul>
+                    {{#if ../TinhTrang}}
+                    {{else}}
                     <center>
                     <button class="btn btn-icon btn-success" type="button">
                         <span class="btn-inner--icon"><i class="ni ni-money-coins"></i></span>
-                        <span class="btn-inner--text">Thanh toán tiền mặt</span>
+                        <span class="btn-inner--text">Thanh toán tiền mặt{{TinhTrang}}</span>
                     </button>
                     <button class="btn btn-icon btn-danger" type="button">
                         <span class="btn-inner--icon"><i class="ni ni-credit-card"></i></span>
                         <span class="btn-inner--text">Thanh toán bằng thẻ</span>
                     </button>
                     </center>
+                    {{/if}}
+                    {{/each}}
+                    {{else}}
+                        <p class="btn-inner--text">Hóa Đơn không được tìm thấy</p>
+                    {{/if}}
                 </div>
             </div>
         </div>

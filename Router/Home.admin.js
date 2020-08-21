@@ -1,4 +1,7 @@
 const express = require("express");
+var madversiting=require('../models/adversiting.model');
+var fun5 = require('../Controllers/function5.controller');
+// const moment = require("moment");m
 var madversiting = require('../models/adversiting.model');
 const moment = require("moment");
 const app = express.Router();
@@ -11,11 +14,8 @@ app.get('/admin/quanlisanpham', (req, res) => {
         profile: 'active'
     })
 });
-app.get('/admin/quanlithongtindathang', (req, res) => {
-    res.render('./Admin/business-management', {
-        page: 'Profile',
-        profile: 'active'
-    })
+app.get('/admin/quanlithongtindathang/thanhtoan/:id', (req, res) => {
+    fun5.HienThiThanhToan(req, res, req.params.id);
 });
 //---------------------------------------------------------------
 //phần quảng cáo 
