@@ -6,31 +6,57 @@
         <h2>
             Quản lí quảng cáo USER
         </h2>
-       <div class="container pt-5 pb-5">
-    <div class="row text-center">
-         <span>
-            Lịch Sử Gửi Quảng Cáo
-        </span>
-    </div> 
-    <div class="row">
-            <table class="table table-striped table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col" class="text-center">Mã KH</th>
-                        <th scope="col" class="text-center">Tên KH</th>
-                        <th scope="col" class="text-center">Email</th>
-                        <th scope="col" class="text-center">SĐT</th>
-                        <th scope="col" class="text-center">Ngày gửi QC</th>
-                        <th scope="col" class="text-center">Địa chỉ</th>
-                        <th><form method="GET" action="/admin/Addproduct">
-                                <button name="products" class="btn btn-sm btn-danger ">
-                                   Thêm Sản Phẩm
-                                </button>
-                                </form></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each userqc}}
+        <br>
+        <div class="container pt-4 pb-4">
+            <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="tabs-text" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-2-tab" data-toggle="tab" href="/admin/advertising/add"
+                    role="tab" aria-controls="tabs-text-2" aria-selected="false">Thêm Quảng Cáo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-2-tab" data-toggle="tab" href="#tabs-text-2"
+                    role="tab" aria-controls="tabs-text-2" aria-selected="false">Gửi Quảng cáo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-3-tab" data-toggle="tab" href="#tabs-text-3"
+                    role="tab" aria-controls="tabs-text-3" aria-selected="false">Quảng cáo đã gửi hôm nay</a>
+            </li>
+             <li class="nav-item">          
+            </li>
+             <li class="nav-item">          
+            </li>
+             <li class="nav-item">          
+            </li>
+            <li class="nav-item">          
+            </li>
+            <li class="nav-item">          
+            </li>
+            <li class="nav-item">          
+            </li>
+        </ul>
+        </div>
+        <div class="container pt-5 pb-5">
+
+            <div class="row text-center">
+                <span>
+                    Lịch Sử Gửi Quảng Cáo
+                </span>
+            </div>
+            <div class="row">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Mã KH</th>
+                            <th scope="col" class="text-center">Tên KH</th>
+                            <th scope="col" class="text-center">Email</th>
+                            <th scope="col" class="text-center">SĐT</th>
+                            <th scope="col" class="text-center">Ngày gửi QC</th>
+                            <th scope="col" class="text-center">Địa chỉ</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each userqc}}
                         <tr class="product" data-id="{{MaKH}}">
                             <th scope="row" class="text-center">{{MaKH}}</th>
                             <td class="text-center">{{TenKH}}</td>
@@ -39,32 +65,21 @@
                             <td class="text-center">{{NgayGuiQuangCao}}</td>
                             <td class="text-center">{{DiaChi}}</td>
                             <td class="text-right">
-                                <form method="GET" onclick="comtet({{ProID}})">
-                                <button name="products" class="btn btn-sm btn-danger ">
-                                    <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                                </button>
-                                </form>
+                                <a href="/admin/advertising/user/{{MaKH}}">
+                                    <button name="products" class="btn btn-sm  ">
+                                        <i>Xem chi tiết lịch sử quảng cáo</i>
+                                    </button>
+                                </a>
                             </td>
                         </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+                        {{/each}}
+                    </tbody>
+                </table>
 
-    </div>
-</div>
+            </div>
+        </div>
     </div>
 </div>
 <script>
-  function comtet(id)
-  {
-    var result=confirm("Bạn có thực sự muốn xóa?");
-    if(result)
-    {
-      window.location = `/admin/qlsp/delete/` + id;
-            
-    }
-    else{
-       window.location = `/admin/qlsp`;
-    }
-  }
+
 </script>
