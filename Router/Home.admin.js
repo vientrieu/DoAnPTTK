@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express.Router();
 app.get('/', (req, res) => {
-    res.redirect('/function-1');
+    res.redirect('/admin/quanlisanpham');
 });
 app.get('/admin/quanlisanpham', (req, res) => {
     res.render('./Admin/statistic', {
