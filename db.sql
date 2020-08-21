@@ -99,7 +99,7 @@ CREATE TABLE `CacQuangCaoGuiDi` (
 SET
   FOREIGN_KEY_CHECKS = 1;
   
-     
+ 
 
     
     
@@ -164,6 +164,13 @@ ALTER TABLE CacQuangCaoGuiDi ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMat
 ALTER TABLE CommentKH ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
 ALTER TABLE CommentKH ADD FOREIGN KEY(MaKH) REFERENCES KhachHang(MaKH);
       ALTER TABLE QuangCaoNguoiDung ADD FOREIGN KEY(MaKH) REFERENCES KhachHang(MaKH);
+      
+      
+      BEGIN;
+INSERT INTO `LoaiHang` VALUES (1, 'Sức Khỏe'), (2, 'Điện tử'), (3, 'Thực phẩm'), (4, 'Gia Dụng');
+COMMIT;
+
+      
       begin;
     INSERT INTO `QuangCaoNguoiDung` VALUES(null,1,2,'2020-05-20 00:00:00');
     commit;

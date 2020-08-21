@@ -61,7 +61,13 @@ app.post("/add", async (req, res) => {
 
     var entity = {};
     entity.TenQuangCao = req.body.nameQC;
-    entity.MaMatHang = "";
+    entity.MaMatHang ;
+    if(req.categoryname==='')
+    {
+
+    }else{
+        entity.MaMatHang=req.categoryname;
+    }
     entity.MoTa = req.body.motaQC;
     
     var idx = await madversiting.addQC(entity);
