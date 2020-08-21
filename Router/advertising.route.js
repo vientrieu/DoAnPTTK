@@ -1,19 +1,20 @@
 const express = require("express");
+var madversiting = require('../models/adversiting.model');
 const app = express.Router();
-app.get('/admin/advertising', (req, res) => {
+app.get('/', (req, res) => {
     res.render('./Admin/advertising/advertising', {
         page: 'Profile',
         profile: 'active'
     })
 });
-app.get('/admin/advertising/web', (req, res) => {
+app.get('/web', (req, res) => {
 
     res.render('./Admin/advertising/advertising', {
         page: 'Profile',
         profile: 'active'
     })
 });
-app.get('/admin/advertising/users', async (req, res) => {
+app.get('/users', async (req, res) => {
     var row = await madversiting.allQuangcaoNguoiDung();
     for (const i in row) {
         var tempdate = moment(row[i].NgayGuiQuangCao, "YYYY-MM-DD HH:MM:SS").format("YYYY-MM-DD HH:MM:SS");
@@ -28,7 +29,7 @@ app.get('/admin/advertising/users', async (req, res) => {
     })
 });
 
-app.get('/admin/advertising/user/:id', async (req, res) => {
+app.get('/user/:id', async (req, res) => {
     var idUser = req.params.id;
     var row = await madversiting.GetThongQCKH(idUser);
     for (const i in row) {
@@ -45,7 +46,7 @@ app.get('/admin/advertising/user/:id', async (req, res) => {
 
 });
 
-app.get('/admin/advertising/add', async (req, res) => {
+app.get('/add', async (req, res) => {
     var rowcats = await madversiting.allLoaiHang();
 
     res.render('./Admin/advertising/addQC', {
