@@ -63,8 +63,15 @@ app.post("/add", async (req, res) => {
     entity.TenQuangCao = req.body.nameQC;
     entity.MaMatHang = 1;
     entity.MoTa = req.body.motaQC;
-    console.log(entity);
+    
     var idx = await madversiting.addQC(entity);
-    console.log(idx);
+    var rowcats = await madversiting.allLoaiHang();
+
+    res.render('./Admin/advertising/addQC', {
+        page: 'Profile',
+        profile: 'active',
+        cats: rowcats,
+        success:"Thêm quảng cáo thành công"
+    })
 });
 module.exports = app;
