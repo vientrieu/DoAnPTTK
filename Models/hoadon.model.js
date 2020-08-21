@@ -20,7 +20,7 @@ module.exports = {
     },
     XacNhanThanhToan: async (MaHD, HinhThucThanhToan) => {
         try {
-            const sql = `UPDATE hoadon SET HinhThucThanhToan = ${HinhThucThanhToan}, ThongTinXacNhanDonHang = 'Da Thanh Toan' WHERE MaHoaDon = ${MaHD}`;
+            const sql = `UPDATE hoadon SET HinhThucThanhToan = ${HinhThucThanhToan}, ThongTinXacNhanDonHang = 'Đã Thanh Tóan' WHERE MaHoaDon = ${MaHD}`;
         } catch (error) {
             console.log("Error Model: HoaDon: XacNhanThanhToan ", error);
         }
