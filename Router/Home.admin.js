@@ -1,7 +1,9 @@
 const express = require("express");
+var madversiting=require('../models/adversiting.model');
+const moment = require("moment");
 const app = express.Router();
 app.get('/', (req, res) => {
-    res.redirect('/function-1');
+    res.redirect('/admin/quanlisanpham');
 });
 app.get('/admin/quanlisanpham', (req, res) => {
     res.render('./Admin/statistic', {
@@ -24,15 +26,25 @@ app.get('/admin/advertising', (req, res) => {
     })
 });
 app.get('/admin/advertising/web', (req, res) => {
+    
     res.render('./Admin/advertising/advertising', {
         page: 'Profile',
         profile: 'active'
     })
 });
-app.get('/admin/advertising/users', (req, res) => {
-    res.render('./Admin/advertising/advertising', {
+app.get('/admin/advertising/users', async (req, res)  => {
+var row = await madversiting.allQuangcaoNguoiDung();
+for(const i in row)
+{
+   var tempdate= moment(row[i].NgayGuiQuangCao, "YYYY-MM-DD HH:MM:SS").format("YYYY-MM-DD HH:MM:SS");
+
+   row[i].NgayGuiQuangCao=tempdate;
+}
+
+    res.render('./Admin/advertising/Adv_User', {
         page: 'Profile',
-        profile: 'active'
+        profile: 'active',
+        userqc:row
     })
 });
 //Hết phần quảng cáo
