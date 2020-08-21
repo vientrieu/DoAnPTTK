@@ -1,5 +1,6 @@
 const express = require("express");
 var madversiting = require('../models/adversiting.model');
+const moment = require("moment");
 const app = express.Router();
 app.get('/', (req, res) => {
     res.render('./Admin/advertising/advertising', {
@@ -56,7 +57,7 @@ app.get('/add', async (req, res) => {
     })
 });
 
-app.post("/admin/AddQC", async (req, res) => {
+app.post("/add", async (req, res) => {
 
     var entity = {};
     entity.TenQuangCao = req.body.nameQC;
