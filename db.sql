@@ -60,6 +60,7 @@ CREATE TABLE `HopDongQuangCao` (
     `TenDoiTac` VARCHAR (50) CHARACTER 
 			SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `ThongTinViTriDang` nvarchar(50) NOT NULL,
+
     `MoTa` VARCHAR (200) CHARACTER 
 			SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	 `NgayKiHopDong` datetime NOT NULL,
@@ -76,6 +77,7 @@ CREATE TABLE `QuangCaoNguoiDung` (
     `MaQuangCaoNguoiDung` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     `TenQuangCao` VARCHAR (50) CHARACTER 
 			SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`MaMatHang` int(11) null,
     `MoTa` VARCHAR (200) CHARACTER 
 			SET utf8 COLLATE utf8_unicode_ci NOT NULL,
             `MaKH` INT,
@@ -146,11 +148,12 @@ SET
   FOREIGN_KEY_CHECKS = 1;
   -- thêm data và tạo khóa ngoại
   
+ALTER TABLE QuangCaoNguoiDung ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
 ALTER TABLE CommentKH ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
 ALTER TABLE CommentKH ADD FOREIGN KEY(MaKH) REFERENCES KhachHang(MaKH);
       ALTER TABLE QuangCaoNguoiDung ADD FOREIGN KEY(MaKH) REFERENCES KhachHang(MaKH);
       begin;
-    INSERT INTO `QuangCaoNguoiDung` VALUES(null,'Quang cao san pham','Quang cao trang tin tuc',4,'2020-05-20 00:00:00');
+    INSERT INTO `QuangCaoNguoiDung` VALUES(null,'Quang cao san pham',null,'Quang cao trang tin tuc',4,'2020-05-20 00:00:00');
     commit;
     begin;
        INSERT INTO `KhachHang` VALUES(null,'Nguyen Huu Hao','huuhao1999@gmail.com','0967023428','TPHCM');
