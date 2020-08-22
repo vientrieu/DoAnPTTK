@@ -3,23 +3,16 @@
 
     </div>
     <div class="row">
-        <h2>
-            Quản lí quảng cáo USER
-        </h2>
         <br>
         <div class="container pt-4 pb-4">
             <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="tabs-text" role="tablist">
             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-2-tab"  href="/admin/advertising/add"
-                    role="tab" aria-controls="tabs-text-2" aria-selected="false">Thêm Quảng Cáo</a>
+                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-2-tab"  href="/admin/advertising/users"
+                    role="tab" aria-controls="tabs-text-2" aria-selected="false">Quay lại</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-2-tab"  href="/admin/advertising/sendtomailuser"
-                    role="tab" aria-controls="tabs-text-2" aria-selected="false">Gửi Quảng cáo</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-3-tab"  href="/admin/advertising/history"
-                    role="tab" aria-controls="tabs-text-3" aria-selected="false">Quảng cáo đã gửi hôm nay</a>
             </li>
              <li class="nav-item">          
             </li>
@@ -51,7 +44,7 @@
                             <th scope="col" class="text-center">Email</th>
                             <th scope="col" class="text-center">SĐT</th>
                             <th scope="col" class="text-center">Ngày gửi QC</th>
-                            <th scope="col" class="text-center">Địa chỉ</th>
+                            <th scope="col" class="text-center">Tên Quảng cáo</th>
 
                         </tr>
                     </thead>
@@ -63,7 +56,7 @@
                             <td>{{emailKH}}</td>
                             <td>{{SoDienThoai}}</td>
                             <td class="text-center">{{NgayGuiQuangCao}}</td>
-                            <td class="text-center">{{DiaChi}}</td>
+                            <td class="text-center">{{TenQuangCao}}</td>
                             <td class="text-right">
                                 <a href="/admin/advertising/user/{{MaKH}}">
                                     <button name="products" class="btn btn-sm  ">

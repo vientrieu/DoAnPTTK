@@ -31,7 +31,7 @@ exports.add = (tbName, entity) => {
             if (error) {
                 reject(error);
             }
-            console.log(`results: ----`, results);
+            //console.log(`results: ----`, results);
             resole(results.insertId);
         });
     });
@@ -49,7 +49,7 @@ exports.add1 = (tbName, entity) => {
             if (error) {
                 reject(error);
             }
-            //console.log(`results: ----`, results);
+            console.log(`Thêm thành công.`);
             resole(results.insertId);
         });
         con.end();

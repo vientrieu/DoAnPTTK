@@ -13,6 +13,16 @@ module.exports = {
             console.log("Error Model: Product: all", error);
         }
     },
+    allQuangcaoNguoiDungvatenqc: async () => {
+        try {
+            const sql = `select * from QuangCaoNguoiDung,KhachHang,CacQuangCaoGuiDi where QuangCaoNguoiDung.MaKH=KhachHang.MaKH and QuangCaoNguoiDung.MaQuangCaoGuiDi=CacQuangCaoGuiDi.MaQuangCaoGuiDi ;`;
+            const rows = await db.load(sql);
+
+            return rows;
+        } catch (error) {
+            console.log("Error Model: Product: all", error);
+        }
+    },
     GetThongQCKH: async (MaKH) => {
         try {
             const sql = `SELECT * FROM QuangCaoNguoiDung,CacQuangCaoGuiDi where MaKH= ${MaKH} and CacQuangCaoGuiDi.MaQuangCaoGuiDi=QuangCaoNguoiDung.MaQuangCaoGuiDi`;
@@ -78,6 +88,21 @@ module.exports = {
             const sql = `select * from CacQuangCaoGuiDi where MaQuangCaoGuiDi=${id}`;
             const rows = await db.load(sql);
             return rows;
+        } catch (error) {
+            console.log("Error Model: Product: all", error);
+        }
+    },
+    CheckSendQC: async (maQC,MaKH) => {
+        try {
+            const sql = `select * from QuangCaoNguoiDung where MaQuangCaoGuiDi=${maQC} and MaKH=${MaKH}`;
+            const rows = await db.load(sql);
+      
+            if(rows.length===0)
+            {
+                return true;
+            }
+            else{
+            return false;}
         } catch (error) {
             console.log("Error Model: Product: all", error);
         }

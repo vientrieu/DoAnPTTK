@@ -23,7 +23,7 @@ app.get('/users', async (req, res) => {
 
         row[i].NgayGuiQuangCao = tempdate;
     }
-    console.log(row);
+
     res.render('./Admin/advertising/Adv_User', {
         page: 'Profile',
         profile: 'active',
@@ -63,13 +63,11 @@ app.post("/add", async (req, res) => {
     var entity = {};
     entity.TenQuangCao = req.body.nameQC;
     entity.MaMatHang;
-    if (req.categoryname === '') {
-
+    if (req.body.categoryname === '') {
     } else {
-        entity.MaMatHang = req.categoryname;
+        entity.MaMatHang = req.body.categoryname;
     }
     entity.MoTa = req.body.motaQC;
-    console.log(req.body);
     if (req.body.motaQC !== "" && req.body.nameQC !== "") {
         var idx = await madversiting.addQC(entity);
         return res.render('./Admin/advertising/addQC', {
@@ -78,7 +76,6 @@ app.post("/add", async (req, res) => {
             cats: rowcats,
             success: "Thêm quảng cáo thành công"
         })
-
     }
     else {
         return res.render('./Admin/advertising/addQC', {
@@ -95,23 +92,21 @@ app.get('/sendtomailuser', async (req, res) => {
     return res.render('./Admin/advertising/sendAdvertisingtoUser', {
         page: 'Profile',
         profile: 'active',
-        cats: rowcats,
-        user: rowuser
+        cats: rowcats.reverse(),
+        user: rowuser.reverse()
     })
 });
 app.get('/sendtomailuser/:id', async (req, res) => {
     var idUser = req.params.id;
     var userFind = await madversiting.SelectOneUser(idUser);
     var infouser = 'Tên: ' + userFind[0].TenKH + ' - Email: ' + userFind[0].emailKH + ' - SĐT: 0' + userFind[0].SoDienThoai;
-
     var rowuser = await madversiting.alluser();
     var rowcats = await madversiting.allQC();
-
     return res.render('./Admin/advertising/sendAdvertisingtoUser', {
         page: 'Profile',
         profile: 'active',
-        cats: rowcats,
-        user: rowuser,
+        cats: rowcats.reverse(),
+        user: rowuser.reverse(),
         userchoose: infouser,
         MaKHchoose: idUser
     })
@@ -125,26 +120,68 @@ app.post('/sendtomailuser/:id', async (req, res) => {
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date + ' ' + time;
-    entity.NgayGuiQuangCao=dateTime;
-    // thêm quảng cáo lịch sử database
-    var idx=await madversiting.addQCchoNguoiDung(entity);
+    entity.NgayGuiQuangCao = dateTime;
+
     // tiến hành gửi mail cho người dùng
     // lấy emailuser
     var userFind = await madversiting.SelectOneUser(idUser);
-    var mailuser=userFind[0].emailKH;
-    var tenuser=userFind[0].TenKH;
+    var mailuser = userFind[0].emailKH;
+    var tenuser = userFind[0].TenKH;
     //Lấy thông tin quảng cáo
-    var infoQC=await madversiting.SelectOneQC(req.body.categoryname);
-   
-    var sendmail=await mSendmail.sendEmailwithContent(mailuser,'Chào '+tenuser+'!!! Thông báo: '+infoQC[0].TenQuangCao,infoQC[0].MoTa+'\r\n'+'Thông tin thêm: '+req.body.motaQC);
+    var infoQC = await madversiting.SelectOneQC(req.body.categoryname);
+
+    var sendmail = await mSendmail.sendEmailwithContent(mailuser, 'Chào ' + tenuser + '!!! Thông báo: ' + infoQC[0].TenQuangCao, infoQC[0].MoTa + '\r\n' + 'Thông tin thêm: ' + req.body.motaQC);
     var rowuser = await madversiting.alluser();
     var rowcats = await madversiting.allQC();
-    return res.render('./Admin/advertising/sendAdvertisingtoUser', {
+    //check quảng cáo đã gửi hay chưa
+    var checkqcsend = await madversiting.CheckSendQC(req.body.categoryname, idUser);
+    if (checkqcsend) {
+        // thêm quảng cáo lịch sử database
+        var idx = await madversiting.addQCchoNguoiDung(entity);
+        return res.render('./Admin/advertising/sendAdvertisingtoUser', {
+            page: 'Profile',
+            profile: 'active',
+            cats: rowcats.reverse(),
+            user: rowuser.reverse(),
+            success: "Gửi quảng cáo cho người dùng thành công."
+        })
+    } else {
+        return res.render('./Admin/advertising/sendAdvertisingtoUser', {
+            page: 'Profile',
+            profile: 'active',
+            cats: rowcats.reverse(),
+            user: rowuser.reverse(),
+            failure: "Gửi Quảng cáo không thành công, Vì đã gửi trước đó."
+        })
+    }
+
+});
+app.get('/history', async (req, res) => {
+    var row = await madversiting.allQuangcaoNguoiDungvatenqc();
+   var arrays=[];
+    var datemow=Number(getdatenow());
+    for (const i in row) {
+        var x=row[i].NgayGuiQuangCao;
+        var date1=Number(x.getFullYear()+''+(x.getMonth()+1)+''+x.getDate());   
+        if(date1-datemow===0)
+        {
+
+            var tempdate = moment(row[i].NgayGuiQuangCao, "YYYY-MM-DD HH:MM:SS").format("YYYY-MM-DD HH:MM:SS");
+            row[i].NgayGuiQuangCao = tempdate;
+            arrays.push(row[i]);
+        }
+    }
+    res.render('./Admin/advertising/HistoryAdvTodayUser', {
         page: 'Profile',
         profile: 'active',
-        cats: rowcats,
-        user: rowuser,
-        success:"Gửi quảng cáo cho người dùng thành công."
+        userqc:arrays
     })
 });
 module.exports = app;
+
+function getdatenow() {
+    var today = new Date();
+    var datetemp;  
+        datetemp = today.getFullYear() +''+ (today.getMonth() + 1) +''+ today.getDate();
+    return datetemp;
+}
