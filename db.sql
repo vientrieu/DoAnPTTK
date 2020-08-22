@@ -1,6 +1,6 @@
-drop database if exists PTTKHTTT;
-create database PTTKHTTT;
-use PTTKHTTT;
+drop database if exists PTTKHTTT1;
+create database PTTKHTTT1;
+use PTTKHTTT1;
 -- create user for connection
 drop user if exists 'newuser' ;
 CREATE USER 'newuser' IDENTIFIED BY 'password';
@@ -138,7 +138,7 @@ create table `DanhGiaMatHang` (
     `MaKH` INT,
     `BinhLuan` VARCHAR (200) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
 	`DiemDanhGia` INT, -- trên >=3 sao là comment tốt, <3 thì comment xấu
-    primary key(`MaComment`)
+    primary key(`MaDanhGia`)
   )ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
 		SET = utf8 COLLATE = utf8_unicode_ci;
 SET FOREIGN_KEY_CHECKS = 1; 
@@ -149,17 +149,29 @@ DROP TABLE IF EXISTS `HopDongQuangCao`;
 CREATE TABLE `HopDongQuangCao` (
     `MaHopDong` INT AUTO_INCREMENT,
     `MaDoiTac` VARCHAR (50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL unique,
-    `TenDoiTac` VARCHAR (50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    `MaMatHang` int(11) null,
-    `ThongTinViTriDang` nvarchar(50) NOT NULL,
-    `MoTa` VARCHAR (200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    `MaLoaiHang` int(11) null,
+    `ThongTinViTriDang` nvarchar(200) NOT NULL,
+    `MoTa` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `NgayKiHopDong` datetime NOT NULL,
     `NgayKetThucHopDong` datetime NOT NULL,
     PRIMARY KEY (`MaHopDong`) USING BTREE
     ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
 		SET = utf8 COLLATE = utf8_unicode_ci;
 SET FOREIGN_KEY_CHECKS = 1;
-  
+-- tạo bảng đối tác quảng cáo
+DROP TABLE IF EXISTS `DoiTacQuangCao`;
+CREATE TABLE `DoiTacQuangCao` (
+    `MaDoiTac` INT AUTO_INCREMENT,
+    `TenDoiTac` VARCHAR (50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    `ThongTinVeDoiTac` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    PRIMARY KEY (`MaDoiTac`) USING BTREE
+    ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
+		SET = utf8 COLLATE = utf8_unicode_ci;
+SET FOREIGN_KEY_CHECKS = 1;
+begin;
+INSERT INTO `DoiTacQuangCao` VALUES (1, 'Thanh Niên','Trang web của họ là thanhnien.vn'), (2, 'Tuổi trẻ','Trang web của họ là tuoitre.vn'), (3, '24h','Trang Web của họ là 24.vn'), (4, 'Zing MP3','Trang web nghe nhac lớn nhất VN');
+commit;
+
 -- Tạo bảng  quảng cáo cho người dùng
 DROP TABLE IF EXISTS `QuangCaoNguoiDung`;
 CREATE TABLE `QuangCaoNguoiDung` (

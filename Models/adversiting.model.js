@@ -43,6 +43,17 @@ module.exports = {
         }
 
     },
+    allDoiTac: async () => {
+        try {
+            const sql = `select * from DoiTacQuangCao`;
+            const rows = await db.load(sql);
+
+            return rows;
+        } catch (error) {
+            console.log("Error Model: Product: all", error);
+        }
+
+    },
     allQC: async () => {
         try {
             const sql = `select * from CacQuangCaoGuiDi`;
@@ -77,6 +88,14 @@ module.exports = {
     },
     addQC: async entity => {
         const [id, err] = await run(db.add('CacQuangCaoGuiDi', entity));
+        if (err) {
+            console.log("Error Model: Category: add", err);
+            throw err;
+        }
+        return id;
+    },
+    addhopdong: async entity => {
+        const [id, err] = await run(db.add('HopDongQuangCao', entity));
         if (err) {
             console.log("Error Model: Category: add", err);
             throw err;

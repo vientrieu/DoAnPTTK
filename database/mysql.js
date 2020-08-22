@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 
 var con = mysql.createConnection({
-    database: 'pttkhttt',
+    database: 'pttkhttt1',
     host: "localhost",
     user: "root",
     password: "123456789"
@@ -31,7 +31,7 @@ exports.add = (tbName, entity) => {
             if (error) {
                 reject(error);
             }
-            //console.log(`results: ----`, results);
+            console.log(`results: ----`, results);
             resole(results.insertId);
         });
     });

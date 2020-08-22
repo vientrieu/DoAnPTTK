@@ -9,21 +9,103 @@ app.get('/', (req, res) => {
         profile: 'active'
     })
 });
+////--------------------------Phần quản lí nội dung đăng--------------------
 app.get('/web', (req, res) => {
 
-    res.render('./Admin/advertising/advertising', {
+    res.render('./Admin/advertising/Adv_web', {
         page: 'Profile',
         profile: 'active'
     })
 });
+app.get('/web/add', async (req, res) => {
+    var rowcats = await madversiting.allLoaiHang();
+    var rowdoitac = await madversiting.allDoiTac();
+    res.render('./Admin/advertising/addhopdong', {
+        page: 'Profile',
+        profile: 'active',
+        cats: rowcats,
+        doitacs: rowdoitac.reverse()
+    })
+});
+app.get('/web/adddoitac', async (req, res) => {
+    res.render('./Admin/advertising/adddoitac', {
+        page: 'Profile',
+        profile: 'active',
+    })
+});
+app.post('/web/adddoitac', async (req, res) => {
+
+    console.log(req.body);
+    if( req.body.tendoitac==''||req.body.motahopdong=='')
+    {
+        return res.render('./Admin/advertising/adddoitac', {
+            page: 'Profile',
+            profile: 'active',
+            thongbao1: 'Bạn chưa nhập đầy đủ thông tin.'
+        })
+    }
+    entity.TenDoiTac=req.body.tendoitac;
+    entity.ThongTinVeDoiTac=req.body.motahopdong;
+    res.render('./Admin/advertising/adddoitac', {
+        page: 'Profile',
+        profile: 'active',
+    })
+    
+});
+app.post('/web/add', async (req, res) => {
+    var entity = {};
+    entity.MaDoiTac = req.body.getmadoitac;
+    entity.MaLoaiHang = req.body.getmaloaihang;
+    entity.ThongTinViTriDang = req.body.thongtinvitridang;
+    var ngaylaphopdong = req.body.ngaylaphopdong;
+    var ngayhethan = req.body.ngayhethanhopdong;
+    var rowcats = await madversiting.allLoaiHang();
+    var rowdoitac = await madversiting.allDoiTac();
+    console.log(req.body);
+    if(req.body.thongtinvitridang==''||req.body.ngaylaphopdong==''||req.body.ngayhethanhopdong==''||req.body.motahopdong=='')
+    {
+        return res.render('./Admin/advertising/addhopdong', {
+            page: 'Profile',
+            profile: 'active',
+            cats: rowcats,
+            doitacs: rowdoitac.reverse(),
+            thongbao1: 'Bạn chưa nhập đầy đủ thông tin.'
+        })
+    }
+    if (ngaylaphopdong > ngayhethan) {
+
+        return res.render('./Admin/advertising/addhopdong', {
+            page: 'Profile',
+            profile: 'active',
+            cats: rowcats,
+            doitacs: rowdoitac.reverse(),
+            thongbao1: 'Bạn nhập thông tin vào chưa đúng.'
+        })
+    }
+    else {
+        var time='00:00:00';
+        var dateTime1 = ngaylaphopdong + ' ' + time;
+        var dateTime2 = ngayhethan + ' ' + time;
+        entity.MoTa=req.body.motahopdong;
+        entity.NgayKiHopDong=dateTime1;
+        entity.NgayKetThucHopDong=dateTime2;
+        await madversiting.addhopdong(entity);
+        return res.render('./Admin/advertising/addhopdong', {
+            page: 'Profile',
+            profile: 'active',
+            cats: rowcats,
+            doitacs: rowdoitac.reverse(),
+            thongbao: 'Thêm hợp đồng thành công.'
+        })
+    }
+});
+//--------------------------Phần quản lí gửi tin nhắn cho user--------------
 app.get('/users', async (req, res) => {
     var row = await madversiting.allQuangcaoNguoiDung();
     for (const i in row) {
         var tempdate = moment(row[i].NgayGuiQuangCao, "YYYY-MM-DD HH:MM:SS").format("YYYY-MM-DD HH:MM:SS");
-
         row[i].NgayGuiQuangCao = tempdate;
     }
-
     res.render('./Admin/advertising/Adv_User', {
         page: 'Profile',
         profile: 'active',
@@ -158,13 +240,12 @@ app.post('/sendtomailuser/:id', async (req, res) => {
 });
 app.get('/history', async (req, res) => {
     var row = await madversiting.allQuangcaoNguoiDungvatenqc();
-   var arrays=[];
-    var datemow=Number(getdatenow());
+    var arrays = [];
+    var datemow = Number(getdatenow());
     for (const i in row) {
-        var x=row[i].NgayGuiQuangCao;
-        var date1=Number(x.getFullYear()+''+(x.getMonth()+1)+''+x.getDate());   
-        if(date1-datemow===0)
-        {
+        var x = row[i].NgayGuiQuangCao;
+        var date1 = Number(x.getFullYear() + '' + (x.getMonth() + 1) + '' + x.getDate());
+        if (date1 - datemow === 0) {
 
             var tempdate = moment(row[i].NgayGuiQuangCao, "YYYY-MM-DD HH:MM:SS").format("YYYY-MM-DD HH:MM:SS");
             row[i].NgayGuiQuangCao = tempdate;
@@ -174,14 +255,14 @@ app.get('/history', async (req, res) => {
     res.render('./Admin/advertising/HistoryAdvTodayUser', {
         page: 'Profile',
         profile: 'active',
-        userqc:arrays
+        userqc: arrays
     })
 });
 module.exports = app;
 
 function getdatenow() {
     var today = new Date();
-    var datetemp;  
-        datetemp = today.getFullYear() +''+ (today.getMonth() + 1) +''+ today.getDate();
+    var datetemp;
+    datetemp = today.getFullYear() + '' + (today.getMonth() + 1) + '' + today.getDate();
     return datetemp;
 }
