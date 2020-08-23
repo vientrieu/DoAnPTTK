@@ -1,6 +1,6 @@
-drop database if exists PTTKHTTT1;
-create database PTTKHTTT1;
-use PTTKHTTT1;
+drop database if exists PTTKHTTT;
+create database PTTKHTTT;
+use PTTKHTTT;
 -- create user for connection
 drop user if exists 'newuser' ;
 CREATE USER 'newuser' IDENTIFIED BY 'password';
@@ -57,8 +57,6 @@ CREATE TABLE `MatHang`  (
   `MoTaMaThang` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `Gia` int(11) NOT NULL,
   `MaLoaiHang` int(11) NOT NULL,
-  `GiamGia` int(11) NOT NULL,
-  `SoLuongBanDau` int(11) NOT NULL,
   `SoLuongTonConLai` int(11) NOT NULL,
   PRIMARY KEY (`MaMatHang`) USING BTREE
   ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
@@ -105,13 +103,13 @@ create table `ChiTietDonNhapHang` (
   );
 
 
--- Tạo bảng Đơn trả hàng
+-- Tạo bảng Đơn trả hàng 
 drop table if exists `DonTraHang`;
 create table `DonTraHang` (
     `MaDonTraHang` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     `MaNhanVienTraHang` int(11) not null,
     `MaNhaCungCap` int(11) not null,
-    `TongSLHang` int(11) not null, -- Tổng số lượng hàng cần nhập
+    `TongSLHang` int(11) not null, -- Tổng số lượng hàng cần trả
     `NgayTraHang` date not null,
     `LyDoTraHang` varchar (100) not null,
     primary key(`MaDonTraHang`)
@@ -124,8 +122,8 @@ drop table if exists `ChiTietDonTraHang`;
 create table `ChiTietDonTraHang` (
     `MaDonTraHang` int(11) NOT NULL,
     `MaMatHang` int(11) not null,
-    `SoLuongNhap` int(11) not null,
-	`TongTien` int(11) not null, -- tổng tiền của mặt hàng
+    `SoLuongTra` int(11) not null,
+    `TongTien` int(11) not null, -- tổng tiền của mặt hàng
     primary key(`MaDonTraHang`, `MaMatHang`)
   );
 
@@ -137,7 +135,7 @@ create table `DanhGiaMatHang` (
     `MaMatHang` int(11),
     `MaKH` INT,
     `BinhLuan` VARCHAR (200) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-	`DiemDanhGia` INT, -- trên >=3 sao là comment tốt, <3 thì comment xấu
+    `DiemDanhGia` INT, -- trên >=3 sao là comment tốt, <3 thì comment xấu
     primary key(`MaDanhGia`)
   )ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
 		SET = utf8 COLLATE = utf8_unicode_ci;
@@ -148,30 +146,18 @@ SET FOREIGN_KEY_CHECKS = 1;
 DROP TABLE IF EXISTS `HopDongQuangCao`;
 CREATE TABLE `HopDongQuangCao` (
     `MaHopDong` INT AUTO_INCREMENT,
-    `MaDoiTac` VARCHAR (50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    `MaLoaiHang` int(11) null,
-    `ThongTinViTriDang` nvarchar(200) NOT NULL,
-    `MoTa` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    `MaDoiTac` VARCHAR (50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL unique,
+    `TenDoiTac` VARCHAR (50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    `MaMatHang` int(11) null,
+    `ThongTinViTriDang` nvarchar(50) NOT NULL,
+    `MoTa` VARCHAR (200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `NgayKiHopDong` datetime NOT NULL,
     `NgayKetThucHopDong` datetime NOT NULL,
     PRIMARY KEY (`MaHopDong`) USING BTREE
     ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
 		SET = utf8 COLLATE = utf8_unicode_ci;
 SET FOREIGN_KEY_CHECKS = 1;
--- tạo bảng đối tác quảng cáo
-DROP TABLE IF EXISTS `DoiTacQuangCao`;
-CREATE TABLE `DoiTacQuangCao` (
-    `MaDoiTac` INT AUTO_INCREMENT,
-    `TenDoiTac` VARCHAR (50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    `ThongTinVeDoiTac` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    PRIMARY KEY (`MaDoiTac`) USING BTREE
-    ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
-		SET = utf8 COLLATE = utf8_unicode_ci;
-SET FOREIGN_KEY_CHECKS = 1;
-begin;
-INSERT INTO `DoiTacQuangCao` VALUES (1, 'Thanh Niên','Trang web của họ là thanhnien.vn'), (2, 'Tuổi trẻ','Trang web của họ là tuoitre.vn'), (3, '24h','Trang Web của họ là 24.vn'), (4, 'Zing MP3','Trang web nghe nhac lớn nhất VN');
-commit;
-
+  
 -- Tạo bảng  quảng cáo cho người dùng
 DROP TABLE IF EXISTS `QuangCaoNguoiDung`;
 CREATE TABLE `QuangCaoNguoiDung` (
@@ -199,7 +185,7 @@ SET FOREIGN_KEY_CHECKS = 1;
     
 -- Tạo bảng hình thức thanh toán 
 drop table if exists `HinhThucThanhToan`;
-create table `HoaDon` (
+create table `HinhThucThanhToan` (
   `MaHinhThucTT` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `TenHinhThucTT` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`MaHinhThucTT`) USING BTREE
@@ -233,17 +219,41 @@ create table `ChiTietHoaDon` (
     `TinhTrangMatHang` varchar (20) not null,
     primary key(`MaHoaDon`, `MaMatHang`)
   );
-  
 
-  -- thêm data và tạo khóa ngoại
+
+  -- Tạo khóa ngoại
+ALTER TABLE MatHang ADD FOREIGN KEY(MaLoaiHang) REFERENCES LoaiHang(MaLoaiHang);
+
 ALTER TABLE DanhGiaMatHang ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
 ALTER TABLE DanhGiaMatHang ADD FOREIGN KEY(MaKH) REFERENCES KhachHang(MaKH); 
 
+ALTER TABLE HopDongQuangCao ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
 ALTER TABLE QuangCaoNguoiDung ADD FOREIGN KEY(MaQuangCaoGuiDi) REFERENCES CacQuangCaoGuiDi(MaQuangCaoGuiDi);
-ALTER TABLE CacQuangCaoGuiDi ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
 ALTER TABLE QuangCaoNguoiDung ADD FOREIGN KEY(MaKH) REFERENCES KhachHang(MaKH);
-      
-      
+ALTER TABLE CacQuangCaoGuiDi ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
+ 
+ALTER TABLE HoaDon ADD FOREIGN KEY(MaKhachHang) REFERENCES KhachHang(MaKH);
+ALTER TABLE HoaDon ADD FOREIGN KEY(HinhThucThanhToan) REFERENCES HinhThucThanhToan(MaHinhThucTT);
+ALTER TABLE HoaDon ADD FOREIGN KEY(MaNhanVienBanHang) REFERENCES NhanVien(MaNhanVien);
+ALTER TABLE HoaDon ADD FOREIGN KEY(MaNhanVienGiaoHang) REFERENCES NhanVien(MaNhanVien);
+
+ALTER TABLE DonNhapHang ADD FOREIGN KEY(MaNhanVienNhapHang) REFERENCES NhanVien(MaNhanVien);
+ALTER TABLE DonNhapHang ADD FOREIGN KEY(MaNhaCungCap) REFERENCES NhaCungCap(MaNCC);
+
+ALTER TABLE DonTraHang ADD FOREIGN KEY(MaNhanVienTraHang) REFERENCES NhanVien(MaNhanVien);
+ALTER TABLE DonTraHang ADD FOREIGN KEY(MaNhaCungCap) REFERENCES NhaCungCap(MaNCC);
+/*
+ALTER TABLE ChiTietHoaDon ADD FOREIGN KEY(MaHoaDon) REFERENCES HoaDon(MaHoaDon);
+ALTER TABLE ChiTietHoaDon ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
+
+ALTER TABLE ChiTietDonNhapHang ADD FOREIGN KEY(MaDonNhapHang) REFERENCES DonNhapHang(MaDonNhapHang);
+ALTER TABLE ChiTietDonNhapHang ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
+
+ALTER TABLE ChiTietDonTraHang ADD FOREIGN KEY(MaDonTraHang) REFERENCES DonTraHang(MaDonTraHang);
+ALTER TABLE ChiTietDonTraHang ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
+
+*/
+-- Thêm data 
 BEGIN;
 	INSERT INTO `LoaiHang` VALUES (1, 'Sức Khỏe'), (2, 'Điện tử'), (3, 'Thực phẩm'), (4, 'Gia Dụng');
 COMMIT;
