@@ -34,23 +34,22 @@ app.get('/web/adddoitac', async (req, res) => {
     })
 });
 app.post('/web/adddoitac', async (req, res) => {
-
-    console.log(req.body);
-    if( req.body.tendoitac==''||req.body.motahopdong=='')
-    {
+    entity = {};
+    if (req.body.tendoitac == '' || req.body.motahopdong == '') {
         return res.render('./Admin/advertising/adddoitac', {
             page: 'Profile',
             profile: 'active',
             thongbao1: 'Bạn chưa nhập đầy đủ thông tin.'
         })
     }
-    entity.TenDoiTac=req.body.tendoitac;
-    entity.ThongTinVeDoiTac=req.body.motahopdong;
+    entity.TenDoiTac = req.body.tendoitac;
+    entity.ThongTinVeDoiTac = req.body.motahopdong;
+    await madversiting.adddoitac(entity);
     res.render('./Admin/advertising/adddoitac', {
         page: 'Profile',
         profile: 'active',
+        thongbao: 'Thêm đối tác thành công.'
     })
-    
 });
 app.post('/web/add', async (req, res) => {
     var entity = {};
@@ -61,9 +60,7 @@ app.post('/web/add', async (req, res) => {
     var ngayhethan = req.body.ngayhethanhopdong;
     var rowcats = await madversiting.allLoaiHang();
     var rowdoitac = await madversiting.allDoiTac();
-    console.log(req.body);
-    if(req.body.thongtinvitridang==''||req.body.ngaylaphopdong==''||req.body.ngayhethanhopdong==''||req.body.motahopdong=='')
-    {
+    if (req.body.thongtinvitridang == '' || req.body.ngaylaphopdong == '' || req.body.ngayhethanhopdong == '' || req.body.motahopdong == '') {
         return res.render('./Admin/advertising/addhopdong', {
             page: 'Profile',
             profile: 'active',
@@ -83,12 +80,12 @@ app.post('/web/add', async (req, res) => {
         })
     }
     else {
-        var time='00:00:00';
+        var time = '00:00:00';
         var dateTime1 = ngaylaphopdong + ' ' + time;
         var dateTime2 = ngayhethan + ' ' + time;
-        entity.MoTa=req.body.motahopdong;
-        entity.NgayKiHopDong=dateTime1;
-        entity.NgayKetThucHopDong=dateTime2;
+        entity.MoTa = req.body.motahopdong;
+        entity.NgayKiHopDong = dateTime1;
+        entity.NgayKetThucHopDong = dateTime2;
         await madversiting.addhopdong(entity);
         return res.render('./Admin/advertising/addhopdong', {
             page: 'Profile',
@@ -98,6 +95,123 @@ app.post('/web/add', async (req, res) => {
             thongbao: 'Thêm hợp đồng thành công.'
         })
     }
+});
+app.get('/web/edit', async (req, res) => {
+    var row = await madversiting.Allhopdong();
+    var datetemp = '';
+    for (const i in row) {
+        if (row[i].NgayKetThucHopDong.getDate() < 10)
+            datetemp = row[i].NgayKetThucHopDong.getFullYear() + '' + (row[i].NgayKetThucHopDong.getMonth() + 1) + '0' + row[i].NgayKetThucHopDong.getDate();
+        else {
+            datetemp = row[i].NgayKetThucHopDong.getFullYear() + '' + (row[i].NgayKetThucHopDong.getMonth() + 1) + '' + row[i].NgayKetThucHopDong.getDate();
+        }
+
+
+        var tempdate = moment(row[i].NgayKiHopDong, "YYYY-MM-DD HH:MM:SS").format("YYYY-MM-DD HH:MM:SS");
+        var tempdate1 = moment(row[i].NgayKetThucHopDong, "YYYY-MM-DD HH:MM:SS").format("YYYY-MM-DD HH:MM:SS");
+        row[i].NgayKiHopDong = tempdate;
+        row[i].NgayKetThucHopDong = tempdate1;
+        if (Number(getdatenow()) > Number(datetemp)) {
+            row[i].tinhtrang = 'Hết hạn';
+            row[i].giahan = 'và gia hạn';
+        }
+        else {
+            row[i].tinhtrang = 'Còn hạn';
+        }
+    }
+
+    return res.render('./Admin/advertising/quanliproduct', {
+        page: 'Profile',
+        profile: 'active',
+        hopdong: row.reverse()
+    })
+});
+app.get('/web/edit/:id', async (req, res) => {
+    var idhopdong = req.params.id;
+    var rowhopdong = await madversiting.SelectOnehopdong(idhopdong);
+    var rowcats = await madversiting.allLoaiHang();
+    var rowdoitac = await madversiting.allDoiTac();
+    for (const i in rowcats) {
+        if (rowcats[i].MaLoaiHang == rowhopdong[0].MaLoaiHang) {
+            rowcats[i].chonlua1 = 'selected';
+        }
+    }
+    for (const i in rowcats) {
+        if (rowdoitac[i].MaDoiTac == rowhopdong[0].MaDoiTac) {
+            rowdoitac[i].chonlua = 'selected';
+        }
+    }
+    res.render('./Admin/advertising/edithopdong', {
+        page: 'Profile',
+        profile: 'active',
+        cats: rowcats,
+        doitacs: rowdoitac.reverse(),
+        hopdonhnow: rowhopdong[0],
+        MaHopDong: idhopdong
+    })
+
+});
+
+app.post('/web/edit/:id', async (req, res) => {
+
+    var idhopdong = req.params.id;
+    var rowhopdong = await madversiting.SelectOnehopdong(idhopdong);
+    console.log(req.body)
+    var entity = {};
+    entity.MaHopDong=idhopdong;
+    entity.MaDoiTac = req.body.getmadoitac;
+    entity.MaLoaiHang = req.body.getmaloaihang;
+    entity.ThongTinViTriDang = req.body.thongtinvitridang;
+    var rowcats = await madversiting.allLoaiHang();
+    var rowdoitac = await madversiting.allDoiTac();
+    var ngayhethan = req.body.ngayhethanhopdong;
+    if (req.body.thongtinvitridang == '' || req.body.motahopdong == '') {
+        for (const i in rowcats) {
+            if (rowcats[i].MaLoaiHang == rowhopdong[0].MaLoaiHang) {
+                rowcats[i].chonlua1 = 'selected';
+            }
+        }
+        for (const i in rowcats) {
+            if (rowdoitac[i].MaDoiTac == rowhopdong[0].MaDoiTac) {
+                rowdoitac[i].chonlua = 'selected';
+            }
+        }
+        return res.render('./Admin/advertising/edithopdong', {
+            page: 'Profile',
+            profile: 'active',
+            cats: rowcats,
+            doitacs: rowdoitac.reverse(),
+            hopdonhnow: rowhopdong[0],
+            thongbao1: 'Bạn chưa nhập đầy đủ thông tin.'
+        })
+    }
+    if(req.body.ngayhethanhopdong == '')
+    {
+        var tempdate = moment(rowhopdong[0].NgayKetThucHopDong, "YYYY-MM-DD HH:MM:SS").format("YYYY-MM-DD HH:MM:SS");
+        entity.NgayKetThucHopDong=tempdate;
+        
+    }
+    else{
+    var time = '00:00:00';
+    var dateTime2 = ngayhethan + ' ' + time;
+    entity.MoTa = req.body.motahopdong;
+    entity.NgayKetThucHopDong = dateTime2;
+    }
+    await madversiting.updatehopdong(entity);
+    return res.render('./Admin/advertising/edithopdong', {
+        page: 'Profile',
+        profile: 'active',
+        cats: rowcats,
+        doitacs: rowdoitac.reverse(),
+        hopdonhnow: rowhopdong[0],
+        thongbao: 'Cập nhật hợp đồng thành công.'
+    })
+
+});
+app.get('/web/delete/:id', async (req, res) => {
+    var idhopdong = req.params.id;
+  await madversiting.deletehopdong(idhopdong);
+  return res.redirect('/admin/advertising/web/edit');
 });
 //--------------------------Phần quản lí gửi tin nhắn cho user--------------
 app.get('/users', async (req, res) => {
