@@ -5,32 +5,32 @@ const moment = require("moment");
 const app = express.Router();
 app.get('/', (req, res) => {
     res.render('./Admin/advertising/advertising', {
-        page: 'Profile',
-        profile: 'active'
+        page: 'Quảng Cáo',
+        quangcao: 'background-color:dodgerblue'
     })
 });
 ////--------------------------Phần quản lí nội dung đăng--------------------
 app.get('/web', (req, res) => {
 
     res.render('./Admin/advertising/Adv_web', {
-        page: 'Profile',
-        profile: 'active'
+        page: 'Quảng Cáo',
+        quangcao: 'background-color:dodgerblue'
     })
 });
 app.get('/web/add', async (req, res) => {
     var rowcats = await madversiting.allLoaiHang();
     var rowdoitac = await madversiting.allDoiTac();
     res.render('./Admin/advertising/addhopdong', {
-        page: 'Profile',
-        profile: 'active',
+        page: 'Quảng Cáo',
+        quangcao: 'background-color:dodgerblue',
         cats: rowcats,
         doitacs: rowdoitac.reverse()
     })
 });
 app.get('/web/adddoitac', async (req, res) => {
     res.render('./Admin/advertising/adddoitac', {
-        page: 'Profile',
-        profile: 'active',
+        page: 'Quảng Cáo',
+        quangcao: 'background-color:dodgerblue',
     })
 });
 app.post('/web/adddoitac', async (req, res) => {
@@ -39,16 +39,16 @@ app.post('/web/adddoitac', async (req, res) => {
     if( req.body.tendoitac==''||req.body.motahopdong=='')
     {
         return res.render('./Admin/advertising/adddoitac', {
-            page: 'Profile',
-            profile: 'active',
+            page: 'Quảng Cáo',
+            quangcao: 'background-color:dodgerblue',
             thongbao1: 'Bạn chưa nhập đầy đủ thông tin.'
         })
     }
     entity.TenDoiTac=req.body.tendoitac;
     entity.ThongTinVeDoiTac=req.body.motahopdong;
     res.render('./Admin/advertising/adddoitac', {
-        page: 'Profile',
-        profile: 'active',
+        page: 'Quảng Cáo',
+        quangcao: 'background-color:dodgerblue',
     })
     
 });
@@ -65,8 +65,8 @@ app.post('/web/add', async (req, res) => {
     if(req.body.thongtinvitridang==''||req.body.ngaylaphopdong==''||req.body.ngayhethanhopdong==''||req.body.motahopdong=='')
     {
         return res.render('./Admin/advertising/addhopdong', {
-            page: 'Profile',
-            profile: 'active',
+            page: 'Quảng Cáo',
+            quangcao: 'background-color:dodgerblue',
             cats: rowcats,
             doitacs: rowdoitac.reverse(),
             thongbao1: 'Bạn chưa nhập đầy đủ thông tin.'
@@ -75,8 +75,8 @@ app.post('/web/add', async (req, res) => {
     if (ngaylaphopdong > ngayhethan) {
 
         return res.render('./Admin/advertising/addhopdong', {
-            page: 'Profile',
-            profile: 'active',
+            page: 'Quảng Cáo',
+            quangcao: 'background-color:dodgerblue',
             cats: rowcats,
             doitacs: rowdoitac.reverse(),
             thongbao1: 'Bạn nhập thông tin vào chưa đúng.'
@@ -91,8 +91,8 @@ app.post('/web/add', async (req, res) => {
         entity.NgayKetThucHopDong=dateTime2;
         await madversiting.addhopdong(entity);
         return res.render('./Admin/advertising/addhopdong', {
-            page: 'Profile',
-            profile: 'active',
+            page: 'Quảng Cáo',
+            quangcao: 'background-color:dodgerblue',
             cats: rowcats,
             doitacs: rowdoitac.reverse(),
             thongbao: 'Thêm hợp đồng thành công.'
@@ -107,8 +107,8 @@ app.get('/users', async (req, res) => {
         row[i].NgayGuiQuangCao = tempdate;
     }
     res.render('./Admin/advertising/Adv_User', {
-        page: 'Profile',
-        profile: 'active',
+        page: 'Quảng Cáo',
+        quangcao: 'background-color:dodgerblue',
         userqc: row.reverse()
     })
 });
@@ -122,8 +122,8 @@ app.get('/user/:id', async (req, res) => {
         row[i].NgayGuiQuangCao = tempdate;
     }
     res.render('./Admin/advertising/detailUser', {
-        page: 'Profile',
-        profile: 'active',
+        page: 'Quảng Cáo',
+        quangcao: 'background-color:dodgerblue',
         MaKH: idUser,
         userqc: row.reverse()
     })
@@ -134,8 +134,8 @@ app.get('/add', async (req, res) => {
     var rowcats = await madversiting.allLoaiHang();
 
     res.render('./Admin/advertising/addQC', {
-        page: 'Profile',
-        profile: 'active',
+        page: 'Quảng Cáo',
+        quangcao: 'background-color:dodgerblue',
         cats: rowcats
     })
 });
@@ -153,16 +153,16 @@ app.post("/add", async (req, res) => {
     if (req.body.motaQC !== "" && req.body.nameQC !== "") {
         var idx = await madversiting.addQC(entity);
         return res.render('./Admin/advertising/addQC', {
-            page: 'Profile',
-            profile: 'active',
+            page: 'Quảng Cáo',
+            quangcao: 'background-color:dodgerblue',
             cats: rowcats,
             success: "Thêm quảng cáo thành công"
         })
     }
     else {
         return res.render('./Admin/advertising/addQC', {
-            page: 'Profile',
-            profile: 'active',
+            page: 'Quảng Cáo',
+            quangcao: 'background-color:dodgerblue',
             cats: rowcats,
             success: "Thêm thất bại do chưa điền đầy đủ thông tin"
         })
@@ -172,8 +172,8 @@ app.get('/sendtomailuser', async (req, res) => {
     var rowuser = await madversiting.alluser();
     var rowcats = await madversiting.allQC();
     return res.render('./Admin/advertising/sendAdvertisingtoUser', {
-        page: 'Profile',
-        profile: 'active',
+        page: 'Quảng Cáo',
+        quangcao: 'background-color:dodgerblue',
         cats: rowcats.reverse(),
         user: rowuser.reverse()
     })
@@ -185,8 +185,8 @@ app.get('/sendtomailuser/:id', async (req, res) => {
     var rowuser = await madversiting.alluser();
     var rowcats = await madversiting.allQC();
     return res.render('./Admin/advertising/sendAdvertisingtoUser', {
-        page: 'Profile',
-        profile: 'active',
+        page: 'Quảng Cáo',
+        quangcao: 'background-color:dodgerblue',
         cats: rowcats.reverse(),
         user: rowuser.reverse(),
         userchoose: infouser,
@@ -221,16 +221,16 @@ app.post('/sendtomailuser/:id', async (req, res) => {
         // thêm quảng cáo lịch sử database
         var idx = await madversiting.addQCchoNguoiDung(entity);
         return res.render('./Admin/advertising/sendAdvertisingtoUser', {
-            page: 'Profile',
-            profile: 'active',
+            page: 'Quảng Cáo',
+            quangcao: 'background-color:dodgerblue',
             cats: rowcats.reverse(),
             user: rowuser.reverse(),
             success: "Gửi quảng cáo cho người dùng thành công."
         })
     } else {
         return res.render('./Admin/advertising/sendAdvertisingtoUser', {
-            page: 'Profile',
-            profile: 'active',
+            page: 'Quảng Cáo',
+            quangcao: 'background-color:dodgerblue',
             cats: rowcats.reverse(),
             user: rowuser.reverse(),
             failure: "Gửi Quảng cáo không thành công, Vì đã gửi trước đó."
@@ -253,8 +253,8 @@ app.get('/history', async (req, res) => {
         }
     }
     res.render('./Admin/advertising/HistoryAdvTodayUser', {
-        page: 'Profile',
-        profile: 'active',
+        page: 'Quảng Cáo',
+        quangcao: 'background-color:dodgerblue',
         userqc: arrays
     })
 });

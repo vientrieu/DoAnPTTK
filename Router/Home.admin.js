@@ -6,8 +6,8 @@ app.get('/', (req, res) => {
 });
 app.get('/admin/quanlisanpham', (req, res) => {
     res.render('./Admin/statistic', {
-        page: 'Profile',
-        profile: 'active'
+        page: 'Quản Lý Sản Phẩm',
+        sanpham: 'background-color:dodgerblue'
     })
 });
 app.use('/admin/quanlithongtindathang/', require('./function5.route'));

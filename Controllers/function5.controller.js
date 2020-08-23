@@ -10,8 +10,8 @@ module.exports = {
             }
         }
         res.render('./Admin/XacNhanThanhToan', {
-            page: 'Xác Nhận Thanh Toán',
-            thanhtoan: 'active',
+            page: 'Quản Lý Thông Tin Đặt Hàng / Xác Nhận Thanh Toán',
+            thanhtoan: 'background-color:dodgerblue',
             HoaDon: hoaDon,
             TinhTrang: tinhTrang,
         })
