@@ -372,6 +372,14 @@ app.get('/history', async (req, res) => {
         userqc: arrays
     })
 });
+app.get('/web/info', async (req, res) => {
+    var row = await madversiting.allqcwebinfo()
+    res.render('./Admin/advertising/thongtinquangcaoweb', {
+        page: 'Profile',
+        profile: 'active',
+        qcweb:row
+    })
+});
 module.exports = app;
 
 function getdatenow() {
