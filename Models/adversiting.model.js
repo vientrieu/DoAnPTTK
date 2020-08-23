@@ -86,6 +86,15 @@ module.exports = {
             console.log("Error Model: Product: all", error);
         }
     },
+    Allhopdong: async () => {
+        try {
+            const sql = `select* from HopDongQuangCao,DoiTacQuangCao,LoaiHang where HopDongQuangCao.MaDoiTac=DoiTacQuangCao.MaDoiTac and HopDongQuangCao.MaLoaiHang=LoaiHang.MaLoaiHang `;
+            const rows = await db.load(sql);
+            return rows;
+        } catch (error) {
+            console.log("Error Model: Product: all", error);
+        }
+    },
     addQC: async entity => {
         const [id, err] = await run(db.add('CacQuangCaoGuiDi', entity));
         if (err) {
@@ -101,6 +110,36 @@ module.exports = {
             throw err;
         }
         return id;
+    },
+    adddoitac: async entity => {
+        const [id, err] = await run(db.add('DoiTacQuangCao', entity));
+        if (err) {
+            console.log("Error Model: Category: add", err);
+            throw err;
+        }
+        return id;
+    },
+    updatehopdong: async entity => {
+        const [nr, err] = await run(db.update('HopDongQuangCao', 'MaHopDong', entity));
+        if (err) {
+            console.log("Error Model: Product: update", err);
+            throw err;
+        }
+        return nr;
+    },
+    deletehopdong: async id => {
+        await run(db.del('HopDongQuangCao','MaHopDong',id));
+       
+        return true;
+    },
+    SelectOnehopdong: async id => {
+        try {
+            const sql = `select * from HopDongQuangCao where MaHopDong=${id}`;
+            const rows = await db.load(sql);
+            return rows;
+        } catch (error) {
+            console.log("Error Model: Product: all", error);
+        }
     },
     SelectOneQC: async id => {
         try {

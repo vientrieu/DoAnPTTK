@@ -1,0 +1,81 @@
+<main>
+    <div class="swiper-slide swiper-lazy swiper-lazy-loaded swiper-slide-active" style="height:550px;
+                        
+                        background-repeat: no-repeat;
+                        background-attachment: fixed;
+                        background-size:100%;
+                        display: flex; justify-content: center;">
+        <div style="width: 50%;">
+            <form action="/admin/advertising/web/edit/{{MaHopDong}}" , method="POST">
+                <div class="card">
+                    <!--Header-->
+                    <div class="header p-3 mt-3 peach-gradient">
+                        <div class="row d-flex justify-content-center">
+                            <h1 class="white-text font-weight-bold">Cập nhật Hợp Đồng</h1>
+                        </div>
+                    </div>
+                    <span style="color: rgb(136, 136, 252); margin-left:25px;">{{thongbao}}</span>
+                    <span style="color: rgb(231, 2, 14); margin-left:25px;">{{thongbao1}}</span>
+                    <div class="card-body mx-1 mt-1">
+                        <!--Body-->
+                        <div class="md-form">
+
+                            <div style="padding-top: 20px; margin-bottom: 0px;padding-bottom: 20px;">
+                                <label for="Form-name">Tên Đối tác: </label>
+                                <select name="getmadoitac">
+                                    {{#each doitacs}}
+                                    <option value="{{MaDoiTac}}" {{chonlua}}>{{TenDoiTac}}</option>
+                                    {{/each}}
+                                </select>
+                                <a href="/admin/advertising/web/adddoitac" style="font-size:12px;"> </br>Nếu chưa có đối
+                                    tác thì thêm tại đây</a>
+                            </div>
+
+                        </div>
+                        <div class="md-form">
+                            <div style="padding-top: 20px; margin-bottom: 0px;padding-bottom: 20px;">
+                                <label for="">Loại hàng: </label>
+                                <select name="getmaloaihang">
+                                    {{#each cats}}
+                                    <option value="{{MaLoaiHang}}" {{chonlua1}}>{{TenLoai}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="md-form">
+                            <label for="Form-name">Thông tin vị trí đăng</label></br>
+                            <input type="text" id="Form-name" name="thongtinvitridang" class="form-control" value="{{hopdonhnow.ThongTinViTriDang}}">
+                        </div>
+                        <div class="md-form" style="margin-top:10px">
+                            <label for="Form-name">Gia Hạn thêm</label></br>
+                           <input type="date" id="birthday" name="ngayhethanhopdong">
+                        </div>
+                        <div class="md-form" style="margin-top:10px">
+                            <label for="description">Mô tả hợp đồng </label></br>
+
+                            <textarea id="editor" class="form-control md-textarea" name="motahopdong" rows="5" >{{hopdonhnow.MoTa}}</textarea>
+                        </div>
+                        <!--Grid row-->
+                        <div class="row">
+                            <!--Grid column-->
+                            <div class="text-center" style="margin-left:20px;margin-top:20px;">
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-danger">Cập nhật Hợp Đồng</button>
+                                </div>
+                            </div>
+
+                            <div class="text-center" style="margin-left:20px;margin-top:20px;">
+                                <div class="text-center">
+                                    <a class="btn " href="/admin/advertising/web/edit">Hủy bỏ</a>
+                                </div>
+                            </div>
+
+                            <!--Grid column-->
+                        </div>
+                        <!--Grid row-->
+                    </div>
+            </form>
+
+        </div>
+    </div>
+</main>
