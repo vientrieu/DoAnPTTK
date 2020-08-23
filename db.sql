@@ -100,7 +100,9 @@ create table `ChiTietDonNhapHang` (
     `SoLuongNhap` int(11) not null,
 	`TongTien` int(11) not null, -- tổng tiền của mặt hàng
     primary key(`MaDonNhapHang`, `MaMatHang`)
-  );
+  )ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
+		SET = utf8 COLLATE = utf8_unicode_ci;
+SET FOREIGN_KEY_CHECKS = 1;
 
 
 -- Tạo bảng Đơn trả hàng 
@@ -125,7 +127,9 @@ create table `ChiTietDonTraHang` (
     `SoLuongTra` int(11) not null,
     `TongTien` int(11) not null, -- tổng tiền của mặt hàng
     primary key(`MaDonTraHang`, `MaMatHang`)
-  );
+  )ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
+		SET = utf8 COLLATE = utf8_unicode_ci;
+SET FOREIGN_KEY_CHECKS = 1;
 
 
 -- tạo bảng comment
@@ -218,8 +222,23 @@ create table `ChiTietHoaDon` (
     `SoLuong` int(11) not null,
     `TinhTrangMatHang` varchar (20) not null,
     primary key(`MaHoaDon`, `MaMatHang`)
-  );
+  )ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
+		SET = utf8 COLLATE = utf8_unicode_ci;
+SET FOREIGN_KEY_CHECKS = 1;
 
+-- Tạo bảng phiếu thanh toán thẻ
+drop table if exists `PhieuThanhToanThe`;
+create table `PhieuThanhToanThe` (
+    `MaPhieu` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `MaHoaDon` int(11) not null,
+    `SoTaiKhoanThe` int(11) not null,
+    `HoTenChuThe` VARCHAR (50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    `NganHang` int(11) not null,
+    `TongTien` int(11) not null,
+    primary key(`MaPhieu`)
+    )ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
+		SET = utf8 COLLATE = utf8_unicode_ci;
+SET FOREIGN_KEY_CHECKS = 1;
 
   -- Tạo khóa ngoại
 ALTER TABLE MatHang ADD FOREIGN KEY(MaLoaiHang) REFERENCES LoaiHang(MaLoaiHang);
@@ -242,7 +261,9 @@ ALTER TABLE DonNhapHang ADD FOREIGN KEY(MaNhaCungCap) REFERENCES NhaCungCap(MaNC
 
 ALTER TABLE DonTraHang ADD FOREIGN KEY(MaNhanVienTraHang) REFERENCES NhanVien(MaNhanVien);
 ALTER TABLE DonTraHang ADD FOREIGN KEY(MaNhaCungCap) REFERENCES NhaCungCap(MaNCC);
-/*
+
+ALTER TABLE PhieuThanhToanThe ADD FOREIGN KEY(MaHoaDon) REFERENCES HoaDon(MaHoaDon);
+
 ALTER TABLE ChiTietHoaDon ADD FOREIGN KEY(MaHoaDon) REFERENCES HoaDon(MaHoaDon);
 ALTER TABLE ChiTietHoaDon ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
 
@@ -252,7 +273,6 @@ ALTER TABLE ChiTietDonNhapHang ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaM
 ALTER TABLE ChiTietDonTraHang ADD FOREIGN KEY(MaDonTraHang) REFERENCES DonTraHang(MaDonTraHang);
 ALTER TABLE ChiTietDonTraHang ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
 
-*/
 -- Thêm data 
 BEGIN;
 	INSERT INTO `LoaiHang` VALUES (1, 'Sức Khỏe'), (2, 'Điện tử'), (3, 'Thực phẩm'), (4, 'Gia Dụng');

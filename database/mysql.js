@@ -36,25 +36,7 @@ exports.add = (tbName, entity) => {
         });
     });
 };
-exports.add1 = (tbName, entity) => {
-    return new Promise((resole, reject) => {
-        const con = createConnection();
-        con.connect(err => {
-            if (err) {
-                reject(err);
-            }
-        });
-        const sql = `INSERT INTO ${tbName} SET ?`;
-        con.query(sql, entity, (error, results, fields) => {
-            if (error) {
-                reject(error);
-            }
-            console.log(`Thêm thành công.`);
-            resole(results.insertId);
-        });
-        con.end();
-    });
-};
+
 exports.del = (tbName, idField, id) => {
     return new Promise((resole, reject) => {
         let sql = "DELETE FROM ?? WHERE ?? = ?";

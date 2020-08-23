@@ -20,7 +20,8 @@ module.exports = {
     },
     XacNhanThanhToan: async (MaHD, HinhThucThanhToan) => {
         try {
-            const sql = `UPDATE hoadon SET HinhThucThanhToan = ${HinhThucThanhToan}, ThongTinXacNhanDonHang = 'Đã Thanh Tóan' WHERE MaHoaDon = ${MaHD}`;
+            const sql = `UPDATE hoadon SET HinhThucThanhToan = ${HinhThucThanhToan}, ThongTinXacNhanDonHang = 'Đã Thanh Toán' WHERE MaHoaDon = ${MaHD}`;
+            const rows = await mysqlconnect.load(sql);
         } catch (error) {
             console.log("Error Model: HoaDon: XacNhanThanhToan ", error);
         }
