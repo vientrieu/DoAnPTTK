@@ -1,0 +1,56 @@
+<div class="container pt-5 pb-5">
+    <div class="row text-center">
+
+    </div>
+    <div class="row">
+       <div class="container pt-5 pb-5">
+    <div class="row text-center">
+        <h2>
+            Quản lí đơn Trả Hàng
+        </h2>
+    </div>
+    <div class="row">
+        {{#if this.empty}}
+            <div class="card-body">
+                <p class="card-text">
+                    Không có dữ liệu.
+                </p>
+            </div>
+        {{else}}
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">Tên nhà cung cấp</th>
+                        <th scope="col" class="text-center">Tên nhân viên</th>
+                        <th scope="col" class="">Lí do nhập hàng</th>
+                        <th scope="col" class="text-center">Ngày Trả hàng</th>
+                        <th scope="col" class="text-center">Tổng số lượng</th>                     
+                        <th scope="col" class="text-center">Thêm mặt hàng</th>
+                        <th scope="col" class="text-center">Xem chi tiết</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each dontrahang}}
+                        <tr class="product" data-id="{{ProID}}">
+                            <th scope="row" class="text-center">{{TenNCC}}</th>
+                            <td class="text-center">{{TenNhanVien}}</td>
+                            <td>{{LyDoTraHang}}</td>
+                          
+                            <td class="text-center">{{NgayTraHang}}</td>
+                            <td class="text-center">{{TongSLHang}}</td>
+                            <td class="text-center"><a href="/admin/quanlisanpham/trahang/addtrahang/{{MaDonTraHang}}">Thêm mặt hàng</a></td>
+                            <td class="text-center"><a href="/admin/quanlisanpham/trahang/chitiet/{{MaDonTraHang}}"><button name="products" class="btn btn-sm  ">
+                                        <i>Xem chi tiết đơn hàng</i>
+                                    </button></a></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{/if}}
+    </div>
+</div>
+    </div>
+</div>
+<script>
+  
+</script>
