@@ -92,8 +92,8 @@ module.exports = {
             }
 
 
-            var tempdate = moment(row[i].NgayKiHopDong, "YYYY-MM-DD HH:MM:SS").format("YYYY-MM-DD HH:MM:SS");
-            var tempdate1 = moment(row[i].NgayKetThucHopDong, "YYYY-MM-DD HH:MM:SS").format("YYYY-MM-DD HH:MM:SS");
+            var tempdate = moment(row[i].NgayKiHopDong, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD HH:mm:ss ");
+            var tempdate1 = moment(row[i].NgayKetThucHopDong, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD HH:mm:ss ");
             row[i].NgayKiHopDong = tempdate;
             row[i].NgayKetThucHopDong = tempdate1;
             if (Number(getdatenow()) > Number(datetemp)) {
@@ -169,7 +169,7 @@ module.exports = {
             })
         }
         if (req.body.ngayhethanhopdong == '') {
-            var tempdate = moment(rowhopdong[0].NgayKetThucHopDong, "YYYY-MM-DD HH:MM:SS").format("YYYY-MM-DD HH:MM:SS");
+            var tempdate = moment(rowhopdong[0].NgayKetThucHopDong, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD HH:mm:ss ");
             entity.NgayKetThucHopDong = tempdate;
 
         }
@@ -197,8 +197,10 @@ module.exports = {
     QuanLiUser: async (req, res) => {
         var row = await madversiting.allQuangcaoNguoiDung();
         for (const i in row) {
-            var tempdate = moment(row[i].NgayGuiQuangCao, "YYYY-MM-DD HH:MM:SS").format("YYYY-MM-DD HH:MM:SS");
+            console.log(row[i].NgayGuiQuangCao);
+            var tempdate = moment(row[i].NgayGuiQuangCao, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD HH:mm:ss ");
             row[i].NgayGuiQuangCao = tempdate;
+            console.log(row[i].NgayGuiQuangCao);
         }
         res.render('./Admin/advertising/Adv_User', {
             page: 'Quảng Cáo',
@@ -210,7 +212,7 @@ module.exports = {
         var idUser = id;
         var row = await madversiting.GetThongQCKH(idUser);
         for (const i in row) {
-            var tempdate = moment(row[i].NgayGuiQuangCao, "YYYY-MM-DD HH:MM:SS").format("YYYY-MM-DD HH:MM:SS");
+            var tempdate = moment(row[i].NgayGuiQuangCao, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD HH:mm:ss ");
             if (row[i].MaMatHang === null) { row[i].MaMatHang = 'Nhiều loại mặt hàng' }
             row[i].NgayGuiQuangCao = tempdate;
         }
@@ -291,7 +293,9 @@ module.exports = {
         var today = new Date();
         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+       
         var dateTime = date + ' ' + time;
+        console.log('thời gian: '  +dateTime);
         entity.NgayGuiQuangCao = dateTime;
 
         // tiến hành gửi mail cho người dùng
@@ -336,7 +340,7 @@ module.exports = {
             var date1 = Number(x.getFullYear() + '' + (x.getMonth() + 1) + '' + x.getDate());
             if (date1 - datemow === 0) {
 
-                var tempdate = moment(row[i].NgayGuiQuangCao, "YYYY-MM-DD HH:MM:SS").format("YYYY-MM-DD HH:MM:SS");
+                var tempdate = moment(row[i].NgayGuiQuangCao, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD HH:mm:ss ");
                 row[i].NgayGuiQuangCao = tempdate;
                 arrays.push(row[i]);
             }
