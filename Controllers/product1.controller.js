@@ -34,6 +34,17 @@ module.exports = {
             nhacungcap: rownhacungcap
         })
     },
+    NhapHangDonDatHangView: async (req, res) => {
+
+        let rownhanvien = await mpro.allNhanVien();
+        let rownhacungcap = await mpro.allNhaCungCap();
+        res.render('./Admin/productmanager/inproduct', {
+            page: 'Quản Lý Sản Phẩm',
+            sanpham: 'background-color:dodgerblue',
+            nhanvien: rownhanvien,
+            nhacungcap: rownhacungcap
+        })
+    },
     TraHangDonTraHangAdd: async (req, res) => {
         let rownhanvien = await mpro.allNhanVien();
         let rownhacungcap = await mpro.allNhaCungCap();
