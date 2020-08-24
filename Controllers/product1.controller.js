@@ -5,6 +5,12 @@ module.exports = {
             page: 'Quản Lý Sản Phẩm',
             sanpham: 'background-color:dodgerblue'
         })
-    }
+    },
+    NhapHangView: async (req, res) => {
+        res.render('./Admin/productmanager/inproduct', {
+            page: 'Quản Lý Sản Phẩm',
+            sanpham: 'background-color:dodgerblue'
+        })
+    },
 };
 

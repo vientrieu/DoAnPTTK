@@ -77,7 +77,10 @@ CREATE TABLE `NhaCungCap` (
 		SET = utf8 COLLATE = utf8_unicode_ci;
 SET FOREIGN_KEY_CHECKS = 1;
 
-
+-- thêm data bảng nhà cc
+begin;
+INSERT INTO `NhaCungCap` VALUES (1, 'Vinamilk','vinamilk.vn','0967023427','TPHCM'), (2, 'Massan','massan.net','0562300233','Hà nội'), (3, '24h','24.vn','015132262','THái nguyên');
+commit;
 -- Tạo bảng Đơn nhập hàng
 drop table if exists `DonNhapHang`;
 create table `DonNhapHang` (
