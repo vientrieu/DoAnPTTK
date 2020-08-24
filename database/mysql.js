@@ -1,10 +1,10 @@
 const mysql = require("mysql");
 
 var con = mysql.createConnection({
-    database: 'pttkhttt1',
+    database: 'DoAnPTTK',
     host: "localhost",
     user: "root",
-    password: "123456789"
+    password: "lmfao#123"
 });
 con.connect(err => {
     if (err) {
@@ -49,7 +49,7 @@ exports.add1 = (tbName, entity) => {
             if (error) {
                 reject(error);
             }
-            console.log(`Thêm thành công.`);
+            //console.log(`results: ----`, results);
             resole(results.insertId);
         });
         con.end();
