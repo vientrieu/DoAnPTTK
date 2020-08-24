@@ -10,7 +10,7 @@ module.exports = {
                 tinhTrang = 0;
             }
         }
-        res.render('./Admin/XacNhanThanhToan', {
+        res.render('./Admin/payment/XacNhanThanhToan', {
             page: 'Quản Lý Thông Tin Đặt Hàng / Xác Nhận Thanh Toán',
             thanhtoan: 'background-color:dodgerblue',
             HoaDon: hoaDon,
@@ -20,14 +20,14 @@ module.exports = {
 
     XacNhanThanhToanTienMat: async (req, res) => {
         HoaDon.XacNhanThanhToan(req.params.id, 1);
-        res.render('./Admin/ThanhCong', {
+        res.render('./Admin/payment/ThanhCong', {
             page: 'Quản Lý Thông Tin Đặt Hàng / Xác Nhận Thanh Toán / Thanh Toán Tiền Mặt',
             thanhtoan: 'background-color:dodgerblue',
         })
     },
 
     HienThiThanhToanThe: async (req, res) => {
-        res.render('./Admin/ThanhToanThe', {
+        res.render('./Admin/payment/ThanhToanThe', {
             page: 'Quản Lý Thông Tin Đặt Hàng / Xác Nhận Thanh Toán / Thanh Toán Thẻ',
             thanhtoan: 'background-color:dodgerblue',
         })
@@ -42,7 +42,7 @@ module.exports = {
         object.TongTien = req.body.sotien;
         PhieuThanhToanThe.Add(object);
         HoaDon.XacNhanThanhToan(req.params.id, 2);
-        res.render('./Admin/ThanhCong', {
+        res.render('./Admin/payment/ThanhCong', {
             page: 'Quản Lý Thông Tin Đặt Hàng / Xác Nhận Thanh Toán / Thanh Toán Thẻ',
             thanhtoan: 'background-color:dodgerblue',
         })

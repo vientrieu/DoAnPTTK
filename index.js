@@ -1,8 +1,6 @@
 let express = require('express');
 let app = express();
 let expressHbs = require('express-handlebars');
-let mysqlconnect = require('./database/mysql');
-var F5controller = require('./Controllers/function5.controller')
 var bodyParser = require('body-parser');
 
 
@@ -18,7 +16,7 @@ let hbs = expressHbs.create({
     layoutsDir: __dirname + '/views/Layouts',
     partialsDir: __dirname + '/views/Partials'
 });
-app.use('', require('./Router/Home.admin'));
+app.use('', require('./Router/home.route'));
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.listen(process.env.PORT || 3000, () => {
