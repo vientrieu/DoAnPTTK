@@ -1,0 +1,64 @@
+
+<main>
+    <div class="swiper-slide swiper-lazy swiper-lazy-loaded swiper-slide-active"
+                        style="height:550px;
+                        
+                        background-repeat: no-repeat;
+                        background-attachment: fixed;
+                        background-size:100%;
+                        display: flex; justify-content: center;">
+        <div style="width: 50%;">
+            <form action="/admin/quanlisanpham/nhaphang/adddondathang/addnhacungcap", method="POST">
+                <div class="card">
+                    <!--Header-->
+                    <div class="header p-3 mt-3 peach-gradient">
+                        <div class="row d-flex justify-content-center">
+                            <h3 class="white-text font-weight-bold">Thêm nhà cung cấp</h3>
+                        </div>
+                    </div>
+                    <span style="color: rgb(136, 136, 252); margin-left:25px;">{{success}}</span>
+                       <span style="color: rgb(204, 0, 10); margin-left:25px;">{{thongbao}}</span>
+                    <div class="card-body mx-1 mt-1">
+                    <!--Body-->
+                    <div class="md-form">
+                        <label for="Form-name">Tên nhà cung cấp</label></br>
+                        <input type="text" id="Form-name" name="tenncc" class="form-control">
+                    </div>
+                    <div class="md-form">
+                        <label for="Form-name">Email</label></br>
+                        <input type="text" id="Form-name" name="emailncc" class="form-control">
+                    </div>
+                    <div class="md-form">
+                        <label for="Form-name">Số điện thoại</label></br>
+                        <input type="number" id="Form-name" name="sdtncc" class="form-control">
+                    </div>
+                    <div class="md-form">
+                        <label for="Form-name">Địa chỉ</label></br>
+                        <input type="text" id="Form-name" name="diachincc" class="form-control">
+                    </div>
+
+
+                    <!--Grid row-->
+                    <div class="row">
+                        <!--Grid column-->
+                        <div class="text-center" style="margin-left:20px;margin-top:20px;">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-danger">Thêm Nhà Cung Cấp</button>
+                            </div>
+                        </div>
+                  
+                        <div class="text-center" style="margin-left:20px;margin-top:20px;">
+                            <div class="text-center">
+                                <a class="btn " href="/admin/quanlisanpham/nhaphang/adddondathang/">Hủy bỏ</a>
+                            </div>
+                        </div>
+                      
+                        <!--Grid column-->
+                    </div>
+                    <!--Grid row-->
+                </div>
+            </form>
+
+        </div>
+    </div>
+</main>
