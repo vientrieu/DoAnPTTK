@@ -187,6 +187,7 @@ create table `ChiTietHoaDon` (
 		SET = utf8 COLLATE = utf8_unicode_ci;
 SET FOREIGN_KEY_CHECKS = 1;
 
+
 -- Tạo bảng phiếu thanh toán thẻ
 drop table if exists `PhieuThanhToanThe`;
 create table `PhieuThanhToanThe` (
@@ -200,8 +201,9 @@ create table `PhieuThanhToanThe` (
     )ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
 		SET = utf8 COLLATE = utf8_unicode_ci;
 SET FOREIGN_KEY_CHECKS = 1;
-  );
-- Tạo bảng Hợp đồng quảng cáo
+
+
+-- Tạo bảng Hợp đồng quảng cáo
 DROP TABLE IF EXISTS `HopDongQuangCao`;
 CREATE TABLE `HopDongQuangCao` (
     `MaHopDong` INT AUTO_INCREMENT,
@@ -215,8 +217,8 @@ CREATE TABLE `HopDongQuangCao` (
     ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
 		SET = utf8 COLLATE = utf8_unicode_ci;
 SET FOREIGN_KEY_CHECKS = 1;
--- tạo bảng đối tác quảng cáo
 
+-- tạo bảng đối tác quảng cáo
 DROP TABLE IF EXISTS `DoiTacQuangCao`;
 CREATE TABLE `DoiTacQuangCao` (
     `MaDoiTac` INT AUTO_INCREMENT,
@@ -262,7 +264,7 @@ ALTER TABLE MatHang ADD FOREIGN KEY(MaLoaiHang) REFERENCES LoaiHang(MaLoaiHang);
 ALTER TABLE DanhGiaMatHang ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
 ALTER TABLE DanhGiaMatHang ADD FOREIGN KEY(MaKH) REFERENCES KhachHang(MaKH); 
 
-ALTER TABLE HopDongQuangCao ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
+ALTER TABLE HopDongQuangCao ADD FOREIGN KEY(MaLoaiHang) REFERENCES LoaiHang(MaLoaiHang);
 ALTER TABLE QuangCaoNguoiDung ADD FOREIGN KEY(MaQuangCaoGuiDi) REFERENCES CacQuangCaoGuiDi(MaQuangCaoGuiDi);
 ALTER TABLE QuangCaoNguoiDung ADD FOREIGN KEY(MaKH) REFERENCES KhachHang(MaKH);
 ALTER TABLE CacQuangCaoGuiDi ADD FOREIGN KEY(MaMatHang) REFERENCES MatHang(MaMatHang);
