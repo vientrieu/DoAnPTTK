@@ -34,14 +34,14 @@
                     {{#if ../TinhTrang}}
                     {{else}}
                     <center>
-                    <button class="btn btn-icon btn-success" type="button">
+                    <a class="btn btn-icon btn-success" href="{{MaHoaDon}}/loai=1">
                         <span class="btn-inner--icon"><i class="ni ni-money-coins"></i></span>
-                        <span class="btn-inner--text">Thanh toán tiền mặt{{TinhTrang}}</span>
-                    </button>
-                    <button class="btn btn-icon btn-danger" type="button">
+                        <span class="btn-inner--text">Thanh toán tiền mặt</span>
+                    </a>
+                    <a class="btn btn-icon btn-danger" href="{{MaHoaDon}}/loai=2">
                         <span class="btn-inner--icon"><i class="ni ni-credit-card"></i></span>
                         <span class="btn-inner--text">Thanh toán bằng thẻ</span>
-                    </button>
+                    </a>
                     </center>
                     {{/if}}
                     {{/each}}

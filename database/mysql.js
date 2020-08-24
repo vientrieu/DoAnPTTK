@@ -1,10 +1,10 @@
 const mysql = require("mysql");
 
 var con = mysql.createConnection({
-    database: 'pttkhttt1',
+    database: 'pttkhttt',
     host: "localhost",
     user: "root",
-    password: "123456789"
+    password: "123456"
 });
 con.connect(err => {
     if (err) {
@@ -36,25 +36,7 @@ exports.add = (tbName, entity) => {
         });
     });
 };
-exports.add1 = (tbName, entity) => {
-    return new Promise((resole, reject) => {
-        const con = createConnection();
-        con.connect(err => {
-            if (err) {
-                reject(err);
-            }
-        });
-        const sql = `INSERT INTO ${tbName} SET ?`;
-        con.query(sql, entity, (error, results, fields) => {
-            if (error) {
-                reject(error);
-            }
-            console.log(`Thêm thành công.`);
-            resole(results.insertId);
-        });
-        con.end();
-    });
-};
+
 exports.del = (tbName, idField, id) => {
     return new Promise((resole, reject) => {
         let sql = "DELETE FROM ?? WHERE ?? = ?";

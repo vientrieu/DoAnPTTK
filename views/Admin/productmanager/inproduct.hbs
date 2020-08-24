@@ -1,0 +1,67 @@
+
+<main>
+    <div class="swiper-slide swiper-lazy swiper-lazy-loaded swiper-slide-active"
+                        style="height:550px;
+                        
+                        background-repeat: no-repeat;
+                        background-attachment: fixed;
+                        background-size:100%;
+                        display: flex; justify-content: center;">
+        <div style="width: 50%;">
+            <form action="/admin/advertising/add", method="POST">
+                <div class="card">
+                    <!--Header-->
+                    <div class="header p-3 mt-3 peach-gradient">
+                        <div class="row d-flex justify-content-center">
+                            <h3 class="white-text font-weight-bold">Thêm Quảng cáo</h3>
+                        </div>
+                    </div>
+                    <span style="color: rgb(136, 136, 252); margin-left:25px;">{{success}}</span>
+                    <div class="card-body mx-1 mt-1">
+                    <!--Body-->
+                    <div class="md-form">
+                        <label for="Form-name">Tên Quảng cáo</label></br>
+                        <input type="text" id="Form-name" name="nameQC" class="form-control">
+                    </div>
+                    <div class="md-form">
+                        <div  style="padding-top: 20px; margin-bottom: 0px;padding-bottom: 20px;">
+                            <label for="">Loại hàng </label>
+                            <select name="categoryname">
+                                <option value=''>Nhiều Loại</option>
+                            {{#each cats}}
+                                <option value="{{MaLoaiHang}}">{{TenLoai}}</option>
+                               
+                            {{/each}}
+                             
+                            </select>
+                        </div>
+                    </div>
+                    <div class="md-form">
+                        <label for="description">Mô tả quảng cáo để gửi khách hàng</label></br>
+                        
+                        <textarea  id="editor" class="form-control md-textarea" name="motaQC" rows="5"></textarea>
+                    </div>
+                    <!--Grid row-->
+                    <div class="row">
+                        <!--Grid column-->
+                        <div class="text-center" style="margin-left:20px;margin-top:20px;">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-danger">Thêm Quảng Cáo</button>
+                            </div>
+                        </div>
+                  
+                        <div class="text-center" style="margin-left:20px;margin-top:20px;">
+                            <div class="text-center">
+                                <a class="btn " href="/admin/advertising/users">Hủy bỏ</a>
+                            </div>
+                        </div>
+                      
+                        <!--Grid column-->
+                    </div>
+                    <!--Grid row-->
+                </div>
+            </form>
+
+        </div>
+    </div>
+</main>

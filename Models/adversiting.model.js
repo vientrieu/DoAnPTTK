@@ -3,6 +3,17 @@ const db = require("../database/mysql"),
 const config = require("../config/default.json");
 
 module.exports = {
+        
+    allqcwebinfo: async () => {
+        try {
+            const sql = `select* from HopDongQuangCao,DoiTacQuangCao where DoiTacQuangCao.MaDoiTac=HopDongQuangCao.MaDoiTac;`;
+            const rows = await db.load(sql);
+
+            return rows;
+        } catch (error) {
+            console.log("Error Model: Product: all", error);
+        }
+    },
     allQuangcaoNguoiDung: async () => {
         try {
             const sql = `select * from QuangCaoNguoiDung,KhachHang where QuangCaoNguoiDung.MaKH=KhachHang.MaKH;`;
