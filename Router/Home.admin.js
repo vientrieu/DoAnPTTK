@@ -4,12 +4,9 @@ const app = express.Router();
 app.get('/', (req, res) => {
     res.redirect('/admin/quanlisanpham');
 });
-app.get('/admin/quanlisanpham', (req, res) => {
-    res.render('./Admin/statistic', {
-        page: 'Quản Lý Sản Phẩm',
-        sanpham: 'background-color:dodgerblue'
-    })
-});
+
+app.use('/admin/quanlisanpham/', require('./product.route'));
+
 app.use('/admin/quanlithongtindathang/', require('./function5.route'));
 app.use('/admin/advertising/', require('./advertising.route'));
 app.get('/function-4', (req, res) => {
