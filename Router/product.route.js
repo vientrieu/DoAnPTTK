@@ -1,5 +1,5 @@
 const express = require("express");
-var ctlproduct = require('../Controllers/product1.controller');
+var ctlproduct = require('../Controllers/product.controller');
 const app = express.Router();
 
 app.get('/', (req, res) => {
@@ -8,7 +8,7 @@ app.get('/', (req, res) => {
 app.get('/nhaphang', (req, res) => {
     ctlproduct.NhapHangView(req,res);
 });
-
+app.use('/phanhoi', require('./comment.route'));
 
 app.get('/nhaphang/adddondathang', (req, res) => {
     ctlproduct.NhapHangDonDatHangView(req,res);
