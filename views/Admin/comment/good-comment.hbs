@@ -49,9 +49,9 @@
                                 <td>
                                     {{DiemDanhGia}}/5
                                 </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger btn-rounded btn-sm my-0"
-                                        onclick="RemoveComment(`{{MaDanhGia}}`)">Delete</button>
+                                <td id="td-{{MaDanhGia}}">
+                                    <button type="button" id="btn-{{MaDanhGia}}" class="btn btn-success btn-rounded btn-sm my-0"
+                                        onclick="ThanksComment(`{{MaDanhGia}}`)">Cảm ơn</button>
                                 </td>
                             </tr>
                             {{/each}}
