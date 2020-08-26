@@ -8,7 +8,6 @@ let hbs = expressHbs.create({
   layoutsDir: __dirname + "/views/Layouts",
   partialsDir: __dirname + "/views/Partials",
 });
-app.use("", require("./Router/home.route"));
 app.use("/admin/order", require("./Router/order.route"));
 
 app.use(bodyParser.urlencoded({ extended: true }));
