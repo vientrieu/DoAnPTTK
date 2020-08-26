@@ -17,6 +17,7 @@ let hbs = expressHbs.create({
     partialsDir: __dirname + '/views/Partials'
 });
 app.use('', require('./Router/home.route'));
+app.use('/admin/order', require('./Router/order.route'));
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.listen(process.env.PORT || 3000, () => {
