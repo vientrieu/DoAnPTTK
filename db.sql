@@ -196,9 +196,9 @@ drop table if exists `PhieuThanhToanThe`;
 create table `PhieuThanhToanThe` (
     `MaPhieu` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     `MaHoaDon` int(11) not null,
-    `SoTaiKhoanThe` int(11) not null,
+    `SoTaiKhoanThe` int(16) not null,
     `HoTenChuThe` VARCHAR (50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    `NganHang` int(11) not null,
+    `NganHang` VARCHAR (50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `TongTien` int(11) not null,
     primary key(`MaPhieu`)
     )ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 

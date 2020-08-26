@@ -1,0 +1,134 @@
+<script>
+    const RemoveProduct = (orderID, mathangID) => {
+        $.ajax({
+            method: "Delete",
+            url: "/admin/order/details/" + orderID,
+            data: { mathangID }
+        })
+            .done(function (res) {
+                location.reload();
+            });
+    }
+
+
+
+    const ReturnProduct = (orderID, mathangID) => {
+        $(`#btn-return-${mathangID}`).attr('hidden', 'hidden');
+        $(`#btn-save-${mathangID}`).removeAttr('hidden');
+        $(`input#input-${mathangID}`).removeAttr('hidden');
+    }
+
+    const SaveReturn = (orderID, mathangID) => {
+        $(`#btn-return-${mathangID}`).removeAttr('hidden');
+        $(`#btn-save-${mathangID}`).attr('hidden', 'hidden');
+        $(`input#input-${mathangID}`).attr('hidden', 'hidden');
+        const reason = $(`input#input-${mathangID}`).val();
+        $.ajax({
+            method: "post",
+            url: "/admin/order/details/" + orderID + '/return',
+            data: { mathangID, reason }
+        })
+            .done(function (res) {
+                location.reload();
+            });
+    }
+</script>
+
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Chi tiết đơn hàng</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="sort">Mã mặt hàng</th>
+                                <th scope="col" class="sort">Đơn giá</th>
+                                <th scope="col" class="sort">Số lượng</th>
+                                <th scope="col" class="sort">Tình trạng mặt hàng</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            {{#each list}}
+                            <tr id="{{this.MaHoaDon}}">
+
+                                <td>
+                                    {{this.TenMaThang}}
+                                </td>
+                                <td>
+                                    {{this.DonGia}}
+                                </td>
+                                <td>
+                                    {{this.SoLuong}}
+                                </td>
+                                <td>
+                                    {{this.TinhTrangMatHang}}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-rounded btn-sm my-0"
+                                        onclick="RemoveProduct({{this.MaHoaDon}}, {{this.MaMatHang}})">Xóa</button>
+                                    <button type="button" class="btn btn-success btn-rounded btn-sm my-0"
+                                        id="btn-return-{{this.MaMatHang}}"
+                                        onclick="ReturnProduct({{this.MaHoaDon}}, {{this.MaMatHang}})">Trả
+                                        hàng</button>
+                                    <button type="button" class="btn btn-success btn-rounded btn-sm my-0"
+                                        id="btn-save-{{this.MaMatHang}}"
+                                        onclick="SaveReturn(`{{this.MaHoaDon}}`, {{this.MaMatHang}})"
+                                        hidden>Save</button>
+                                </td>
+                                <td>
+                                    <input type="text" class='form-control' hidden id='input-{{this.MaMatHang}}'>
+                                </td>
+
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Card footer -->
+                <div class="card-footer py-4">
+                    <nav aria-label="...">
+                        Có tổng cộng {{totalpages}} trang, đến trang số
+                        <input id="gotopage" type="text" style="width:2rem"><span id="a"> <a href=""
+                                class="btn btn-danger btn-rounded btn-sm my-0">Đi đến</a></span>
+                        <ul class="pagination justify-content-end mb-0">
+                            {{#if prev}}
+                            <li class="page-item">
+                                <a class="page-link" href="{{prev}}">
+                                    <i class="fas fa-angle-left"></i>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="{{prev}}">{{prev}}</a>
+                            </li>
+                            {{/if}}
+                            <li class="page-item active">
+                                <a class="page-link" href="">{{now}} <span class="sr-only">(current)</span></a>
+                            </li>
+                            {{#if next}}
+                            <li class="page-item">
+                                <a class="page-link" href="{{next}}">{{next}}</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="{{next}}">
+                                    <i class="fas fa-angle-right"></i>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                            {{/if}}
+                        </ul>
+                        <p class="pagination justify-content-end mb-0"></p>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
