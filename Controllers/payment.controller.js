@@ -40,7 +40,7 @@ module.exports = {
         object.HoTenChuThe = req.body.hoten;
         object.NganHang = req.body.nganhang;
         object.TongTien = req.body.sotien;
-        PhieuThanhToanThe.Add(object);
+        var insert = await PhieuThanhToanThe.Add(object);
         HoaDon.XacNhanThanhToan(req.params.id, 2);
         res.render('./Admin/payment/ThanhCong', {
             page: 'Quản Lý Thông Tin Đặt Hàng / Xác Nhận Thanh Toán / Thanh Toán Thẻ',
