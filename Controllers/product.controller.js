@@ -131,6 +131,7 @@ module.exports = {
         entity.EmailNCC = req.body.emailncc;
         entity.SDT = req.body.sdtncc;
         entity.DiaChiNCC = req.body.diachincc;
+        console.log(entity);
         await mpro.addNhaCungCap(entity);
         return res.render('./Admin/productmanager/themnhacungcapview', {
             page: 'Quản Lý Sản Phẩm',

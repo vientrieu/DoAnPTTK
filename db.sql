@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS `MatHang`;
 CREATE TABLE `MatHang`  (
   `MaMatHang` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `TenMaThang` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `MoTaMaThang` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `MoTaMaThang` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `Gia` int(11) NOT NULL,
   `MaLoaiHang` int(11) NOT NULL,
   `SoLuongTonConLai` int(11) NOT NULL,
@@ -89,7 +89,7 @@ create table `DonNhapHang` (
     `MaNhaCungCap` int(11) not null,
     `TongSLHang` int(11) not null, -- Tổng số lượng hàng cần nhập
     `NgayNhapHang` date not null,
-    `LyDoNhapHang` varchar (100) not null,
+    `LyDoNhapHang`text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     primary key(`MaDonNhapHang`)
     )ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
 		SET = utf8 COLLATE = utf8_unicode_ci;
@@ -116,7 +116,7 @@ create table `DonTraHang` (
     `MaNhaCungCap` int(11) not null,
     `TongSLHang` int(11) not null, -- Tổng số lượng hàng cần trả
     `NgayTraHang` date not null,
-    `LyDoTraHang` varchar (100) not null,
+    `LyDoTraHang` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     primary key(`MaDonTraHang`)
     )ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 
 		SET = utf8 COLLATE = utf8_unicode_ci;
@@ -196,9 +196,9 @@ drop table if exists `PhieuThanhToanThe`;
 create table `PhieuThanhToanThe` (
     `MaPhieu` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     `MaHoaDon` int(11) not null,
-    `SoTaiKhoanThe` int(11) not null,
+    `SoTaiKhoanThe` int(16) not null,
     `HoTenChuThe` VARCHAR (50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    `NganHang` int(11) not null,
+    `NganHang` VARCHAR (50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `TongTien` int(11) not null,
     primary key(`MaPhieu`)
     )ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER 

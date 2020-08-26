@@ -19,7 +19,7 @@ module.exports = {
     },
 
     XacNhanThanhToanTienMat: async (req, res) => {
-        HoaDon.XacNhanThanhToan(req.params.id, 1);
+        HoaDon.UpdateThanhToan(req.params.id, 1);
         res.render('./Admin/payment/ThanhCong', {
             page: 'Quản Lý Thông Tin Đặt Hàng / Xác Nhận Thanh Toán / Thanh Toán Tiền Mặt',
             thanhtoan: 'background-color:dodgerblue',
@@ -40,8 +40,8 @@ module.exports = {
         object.HoTenChuThe = req.body.hoten;
         object.NganHang = req.body.nganhang;
         object.TongTien = req.body.sotien;
-        PhieuThanhToanThe.Add(object);
-        HoaDon.XacNhanThanhToan(req.params.id, 2);
+        var insert = await PhieuThanhToanThe.Add(object);
+        HoaDon.UpdatehanhToan(req.params.id, 2);
         res.render('./Admin/payment/ThanhCong', {
             page: 'Quản Lý Thông Tin Đặt Hàng / Xác Nhận Thanh Toán / Thanh Toán Thẻ',
             thanhtoan: 'background-color:dodgerblue',

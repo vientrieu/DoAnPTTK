@@ -1,0 +1,65 @@
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <div class="row">
+                        <div class="col-lg-6 col-7">
+                            <h3 class="mb-0">Danh sách đánh giá</h3>
+                        </div>
+                        <div class="col-lg-6 col-5 text-right">
+                            <a href="./tong" class="btn btn-sm btn-primary">Tổng Phản Hồi</a>
+                            <a href="./phanhoitot" class="btn btn-sm btn-success">Phản Hồi Tốt</a>
+                            <a href="./phanhoixau" class="btn btn-sm btn-danger">Phản Hồi Xấu</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="sort">Mã Sản Phẩm</th>
+                                <th scope="col" class="sort">Khách Hàng</th>
+                                <th scope="col" class="sort">Địa Chỉ</th>
+                                <th scope="col" class="sort">Email</th>
+                                <th scope="col" class="sort">Bình Luận</th>
+                                <th scope="col" class="sort">Đánh Giá</th>
+                                <th scope="col" class="sort">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            {{#each DanhGia}}
+                            <tr id="{{MaDanhGia}}">
+                                <td>
+                                    {{MaMatHang}}
+                                </td>
+                                <td>
+                                    {{TenKH}}
+                                </td>
+                                <td>
+                                    {{DiaChi}}
+                                </td>
+                                <td>
+                                    {{emailKH}}
+                                </td>
+                                <td>
+                                    {{BinhLuan}}
+                                </td>
+                                <td>
+                                    {{DiemDanhGia}}/5
+                                </td>
+                                <td id="td-{{MaDanhGia}}">
+                                    <button type="button" id="btn-{{MaDanhGia}}" class="btn btn-success btn-rounded btn-sm my-0"
+                                        onclick="ThanksComment(`{{MaDanhGia}}`)">Cảm ơn</button>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Card footer -->
+            </div>
+        </div>
+    </div>
+</div>

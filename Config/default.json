@@ -1,5 +1,5 @@
 {
-  "mysql": {
+  "ConnectionConfig": {
     "connectionLimit": 50,
     "host": "localhost",
     "port": 3306,
@@ -13,9 +13,9 @@
   "permission": {
     "admin": 1,
     "buyer": 0
-},
-  "vnp_TmnCode":"E25G8S7N",
-  "vnp_HashSecret":"LYPLFTNIGVKLSCDZMEXLZFXLROZFUTGL",
-  "vnp_Url":"http://sandbox.vnpayment.vn/paymentv2/vpcpay.html",
+  },
+  "vnp_TmnCode": "E25G8S7N",
+  "vnp_HashSecret": "LYPLFTNIGVKLSCDZMEXLZFXLROZFUTGL",
+  "vnp_Url": "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html",
   "vnp_ReturnUrl": "http://localhost:3000"
 }
