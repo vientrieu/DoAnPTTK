@@ -10,7 +10,9 @@ app.get("/", async (req, res) => {
     NgayLapHoaDon: moment(item.NgayLapHoaDon).format("DD/MM/YYYY"),
   }));
   //   console.log(list);
-  res.render("Admin/order/OrderManagement", { list });
+  res.render("Admin/order/OrderManagement", { list,
+    page: 'Quản Lý Thông Tin Đặt Hàng / Xác Nhận Đặt Hàng',
+    dathang: 'background-color:dodgerblue', });
 });
 
 app.post("/details/:orderID/return", async (req, res) => {
@@ -31,7 +33,9 @@ app.get("/details/:orderID", async (req, res) => {
   const { orderID } = req.params;
   let list = await order.SelectOne(orderID);
   // console.log(list);
-  res.render("Admin/order/OrderDetails", { list });
+  res.render("Admin/order/OrderDetails", { list,
+    page: 'Quản Lý Thông Tin Đặt Hàng / Xác Nhận Đặt Hàng',
+    dathang: 'background-color:dodgerblue', });
 });
 
 app.delete("/details/:orderID", async (req, res) => {
