@@ -8,7 +8,6 @@ let hbs = expressHbs.create({
   layoutsDir: __dirname + "/views/Layouts",
   partialsDir: __dirname + "/views/Partials",
 });
-app.use("/admin/order", require("./Router/order.route"));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 //set public static folder
@@ -17,6 +16,8 @@ app.use(express.static(__dirname + "/Public"));
 app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 app.use("", require("./Router/home.route"));
+app.use("/admin/order", require("./Router/order.route"));
+
 app.listen(process.env.PORT || 3000, () => {
   console.log(`Server is running at port ${process.env.PORT || 3000}`);
 });

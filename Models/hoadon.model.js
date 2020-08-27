@@ -19,7 +19,7 @@ module.exports = {
   },
   SelectOne: async (MaHD) => {
     try {
-      const sql = `SELECT c.MaHoaDon, m.TenMaThang, c.DonGia, c.SoLuong, c.TinhTrangMatHang FROM chitiethoadon c, mathang m WHERE c.MaHoaDon = ${MaHD} and m.MaMatHang= c.MaMatHang`;
+      const sql = `SELECT c.MaHoaDon, m.TenMaThang, c.DonGia, c.SoLuong, c.TinhTrangMatHang, c.MaMatHang FROM chitiethoadon c, mathang m WHERE c.MaHoaDon = ${MaHD} and m.MaMatHang= c.MaMatHang`;
       const rows = await mysqlconnect.load(sql);
       return rows;
     } catch (error) {
