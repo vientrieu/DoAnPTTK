@@ -17,6 +17,15 @@ module.exports = {
       console.log("Error Model: HoaDon: selectAll ", error);
     }
   },
+  SelectOne1: async (MaHD) => {
+    try {
+      const sql = `SELECT c.MaHoaDon, m.TenMaThang, c.DonGia, c.SoLuong, c.TinhTrangMatHang, c.MaMatHang FROM chitiethoadon c, mathang m WHERE c.MaHoaDon = ${MaHD} and m.MaMatHang= c.MaMatHang`;
+      const rows = await mysqlconnect.load(sql);
+      return rows;
+    } catch (error) {
+      console.log("Error Model: HoaDon: selectOne ", error);
+    }
+  },
   SelectOne: async (MaHD) => {
     try {
       const sql = `SELECT c.MaHoaDon, m.TenMaThang, c.DonGia, c.SoLuong, c.TinhTrangMatHang, c.MaMatHang FROM chitiethoadon c, mathang m WHERE c.MaHoaDon = ${MaHD} and m.MaMatHang= c.MaMatHang`;

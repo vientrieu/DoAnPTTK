@@ -2,7 +2,7 @@ const HoaDon = require("../Models/hoadon.model");
 const PhieuThanhToanThe = require("../Models/phieuthanhtoanthe.model");
 module.exports = {
     HienThiThanhToan: async (req, res, MaHD) => {
-        var hoaDon = await HoaDon.SelectOne(MaHD);
+        var hoaDon = await HoaDon.SelectOne1(MaHD);
         var tinhTrang = 1;
         if (hoaDon[0]!=null)
         {
@@ -41,7 +41,7 @@ module.exports = {
         object.NganHang = req.body.nganhang;
         object.TongTien = req.body.sotien;
         var insert = await PhieuThanhToanThe.Add(object);
-        HoaDon.UpdatehanhToan(req.params.id, 2);
+        HoaDon.UpdateThanhToan(req.params.id, 2);
         res.render('./Admin/payment/ThanhCong', {
             page: 'Quản Lý Thông Tin Đặt Hàng / Xác Nhận Thanh Toán / Thanh Toán Thẻ',
             thanhtoan: 'background-color:dodgerblue',
