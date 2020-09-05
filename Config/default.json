@@ -1,10 +1,21 @@
 {
   "ConnectionConfig": {
     "connectionLimit": 50,
-    "host": "localhost",
+    "host": "18.188.209.188",
     "port": 3306,
-    "user": "root",
-    "password": "123456",
-    "database": "pttkhttt"
-  }
+    "user": "huuhao",
+    "password": "123456789",
+    "database": "PTTKHTTT"
+  },
+  "paginate": {
+    "limit": 6
+  },
+  "permission": {
+    "admin": 1,
+    "buyer": 0
+  },
+  "vnp_TmnCode": "E25G8S7N",
+  "vnp_HashSecret": "LYPLFTNIGVKLSCDZMEXLZFXLROZFUTGL",
+  "vnp_Url": "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html",
+  "vnp_ReturnUrl": "http://localhost:3000"
 }
