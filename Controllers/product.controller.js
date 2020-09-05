@@ -182,7 +182,7 @@ module.exports = {
     addMatHangInDon: async (req, res, id) => {
 
         var rowmathang = await mpro.allMatHang();
-
+        console.log(rowmathang);
         res.render('./Admin/productmanager/addMatHangtoDonview', {
             page: 'Quản Lý Sản Phẩm',
             sanpham: 'background-color:dodgerblue',
