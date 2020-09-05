@@ -96,6 +96,9 @@ module.exports = {
             var tempdate1 = moment(row[i].NgayKetThucHopDong, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD HH:mm:ss ");
             row[i].NgayKiHopDong = tempdate;
             row[i].NgayKetThucHopDong = tempdate1;
+            console.log('now:'+getdatenow());
+            console.log('datehet'+Number(datetemp));
+
             if (Number(getdatenow()) > Number(datetemp)) {
                 row[i].tinhtrang = 'Hết hạn';
                 row[i].giahan = 'và gia hạn';
@@ -384,6 +387,6 @@ module.exports = {
 function getdatenow() {
     var today = new Date();
     var datetemp;
-    datetemp = today.getFullYear() + '' + (today.getMonth() + 1) + '' + today.getDate();
+    datetemp = today.getFullYear() + '' + (today.getMonth() + 1) + '0' + today.getDate();
     return datetemp;
 }
